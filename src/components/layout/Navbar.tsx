@@ -46,7 +46,7 @@ export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
           <span className="lg-block hidden font-bold text-gray-900">ScienceLink</span>
 
           <form onSubmit={handleSearch} className="md-block hidden relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
               type="text"
               placeholder="Szukaj profili, postów, artykułów..."

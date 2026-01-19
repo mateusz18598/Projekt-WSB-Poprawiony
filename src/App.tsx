@@ -52,7 +52,7 @@ function AppContent() {
         onSearch={handleSearch}
       />
 
-      <div className={`container ${activeTab === 'home' ? 'app-layout' : 'py-6'}`}>
+      <div className={`container ${activeTab === 'home' ? 'app-layout' : 'app-page'}`}>
         {/* HOME TAB */}
         {activeTab === 'home' && (
           <>

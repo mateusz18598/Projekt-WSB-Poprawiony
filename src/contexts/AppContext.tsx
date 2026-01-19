@@ -193,272 +193,256 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [currentUser, setCurrentUser] = useState<User>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('currentUser');
-      if (saved) return JSON.parse(saved);
-    }
-    return {
-      id: '1',
-      name: 'Dr Jan Kowalski',
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState<User>({
+    id: '1',
+    name: 'Dr Jan Kowalski',
+    avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop',
+    coverImage: 'https://images.unsplash.com/photo-1628017975048-74768e00219e?w=1440&h=300&fit=crop',
+    title: 'PhD in Artificial Intelligence',
+    bio: 'Specjalista w dziedzinie sztucznej inteligencji i machine learning. Doktorat z informatyki na Uniwersytecie Warszawskim. Pasjonuję się deep learning i jego zastosowaniami w medycynie.',
+    institution: 'TechCorp Research Lab',
+    location: 'Warszawa, Polska',
+    connections: ['2', '3'],
+    profileViews: 892,
+    citations: 145,
+    skills: ['Machine Learning', 'Deep Learning', 'Python', 'TensorFlow', 'Research', 'Data Science'],
+    researchInterests: ['Artificial Intelligence', 'Medical Imaging', 'Neural Networks', 'Computer Vision'],
+    experience: [
+      {
+        id: 'exp-1',
+        position: 'Senior Research Scientist',
+        institution: 'TechCorp Research Lab',
+        startDate: '2020-01',
+        current: true,
+        description: 'Prowadzenie badań nad zastosowaniem AI w diagnostyce medycznej. Kierowanie zespołem 5 naukowców.'
+      },
+      {
+        id: 'exp-2',
+        position: 'Research Fellow',
+        institution: 'MIT Media Lab',
+        startDate: '2018-06',
+        endDate: '2019-12',
+        current: false,
+        description: 'Praca nad projektami deep learning i computer vision.'
+      }
+    ],
+    education: [
+      {
+        id: 'edu-1',
+        institution: 'Uniwersytet Warszawski',
+        degree: 'Doktor (PhD)',
+        field: 'Informatyka',
+        startYear: '2015',
+        endYear: '2019',
+        current: false
+      },
+      {
+        id: 'edu-2',
+        institution: 'Politechnika Warszawska',
+        degree: 'Magister',
+        field: 'Informatyka',
+        startYear: '2011',
+        endYear: '2015',
+        current: false
+      }
+    ],
+    publications: [
+      {
+        id: 'pub-1',
+        title: 'Deep Learning Approaches in Medical Image Analysis',
+        authors: ['Jan Kowalski', 'Anna Nowak', 'Piotr Wiśniewski'],
+        journal: 'Nature Machine Intelligence',
+        year: '2023',
+        doi: '10.1038/s42256-023-00000-0',
+        citations: 78
+      },
+      {
+        id: 'pub-2',
+        title: 'Neural Networks for Cancer Detection',
+        authors: ['Jan Kowalski', 'Maria Kowalczyk'],
+        journal: 'Journal of Medical AI',
+        year: '2022',
+        doi: '10.1016/j.jmai.2022.00000',
+        citations: 67
+      }
+    ],
+    projects: [
+      {
+        id: 'proj-1',
+        name: 'AI-Powered Medical Diagnosis',
+        description: 'System diagnostyczny wykorzystujący deep learning do wykrywania nowotworów.',
+        status: 'active',
+        team: ['1', '2', '4']
+      }
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1707944745899-104a4b12d945?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1631599143424-5bc234fbebf1?w=400&h=400&fit=crop',
+      'https://images.unsplash.com/photo-1765830403209-a5eceac4c198?w=400&h=400&fit=crop'
+    ]
+  });
+
+  const [allUsers, setAllUsers] = useState<User[]>([
+    {
+      id: '2',
+      name: 'Dr Anna Nowak',
+      avatar: 'https://images.unsplash.com/photo-1649589244330-09ca58e4fa64?w=100&h=100&fit=crop',
+      coverImage: 'https://images.unsplash.com/photo-1633457896836-f8d6025c85d1?w=1440&h=300&fit=crop',
+      title: 'Professor of Computer Science',
+      bio: 'Badaczka AI i deep learning. Publikacje w Nature i Science. Kierownik laboratorium AI na MIT.',
+      institution: 'MIT',
+      location: 'Boston, USA',
+      connections: ['1', '3'],
+      profileViews: 2340,
+      citations: 567,
+      skills: ['AI', 'Deep Learning', 'Research', 'Python', 'TensorFlow'],
+      researchInterests: ['Quantum Computing', 'AI', 'Machine Learning'],
+      experience: [],
+      education: [],
+      publications: [],
+      projects: [],
+      gallery: []
+    },
+    {
+      id: '3',
+      name: 'Prof. Piotr Wiśniewski',
       avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop',
       coverImage: 'https://images.unsplash.com/photo-1628017975048-74768e00219e?w=1440&h=300&fit=crop',
-      title: 'PhD in Artificial Intelligence',
-      bio: 'Specjalista w dziedzinie sztucznej inteligencji i machine learning. Doktorat z informatyki na Uniwersytecie Warszawskim. Pasjonuję się deep learning i jego zastosowaniami w medycynie.',
-      institution: 'TechCorp Research Lab',
-      location: 'Warszawa, Polska',
-      connections: ['2', '3'],
-      profileViews: 892,
-      citations: 145,
-      skills: ['Machine Learning', 'Deep Learning', 'Python', 'TensorFlow', 'Research', 'Data Science'],
-      researchInterests: ['Artificial Intelligence', 'Medical Imaging', 'Neural Networks', 'Computer Vision'],
-      experience: [
-        {
-          id: 'exp-1',
-          position: 'Senior Research Scientist',
-          institution: 'TechCorp Research Lab',
-          startDate: '2020-01',
-          current: true,
-          description: 'Prowadzenie badań nad zastosowaniem AI w diagnostyce medycznej. Kierowanie zespołem 5 naukowców.'
-        },
-        {
-          id: 'exp-2',
-          position: 'Research Fellow',
-          institution: 'MIT Media Lab',
-          startDate: '2018-06',
-          endDate: '2019-12',
-          current: false,
-          description: 'Praca nad projektami deep learning i computer vision.'
-        }
-      ],
-      education: [
-        {
-          id: 'edu-1',
-          institution: 'Uniwersytet Warszawski',
-          degree: 'Doktor (PhD)',
-          field: 'Informatyka',
-          startYear: '2015',
-          endYear: '2019',
-          current: false
-        },
-        {
-          id: 'edu-2',
-          institution: 'Politechnika Warszawska',
-          degree: 'Magister',
-          field: 'Informatyka',
-          startYear: '2011',
-          endYear: '2015',
-          current: false
-        }
-      ],
-      publications: [
-        {
-          id: 'pub-1',
-          title: 'Deep Learning Approaches in Medical Image Analysis',
-          authors: ['Jan Kowalski', 'Anna Nowak', 'Piotr Wiśniewski'],
-          journal: 'Nature Machine Intelligence',
-          year: '2023',
-          doi: '10.1038/s42256-023-00000-0',
-          citations: 78
-        },
-        {
-          id: 'pub-2',
-          title: 'Neural Networks for Cancer Detection',
-          authors: ['Jan Kowalski', 'Maria Kowalczyk'],
-          journal: 'Journal of Medical AI',
-          year: '2022',
-          doi: '10.1016/j.jmai.2022.00000',
-          citations: 67
-        }
-      ],
-      projects: [
-        {
-          id: 'proj-1',
-          name: 'AI-Powered Medical Diagnosis',
-          description: 'System diagnostyczny wykorzystujący deep learning do wykrywania nowotworów.',
-          status: 'active',
-          team: ['1', '2', '4']
-        }
-      ],
-      gallery: [
-        'https://images.unsplash.com/photo-1707944745899-104a4b12d945?w=400&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1631599143424-5bc234fbebf1?w=400&h=400&fit=crop',
-        'https://images.unsplash.com/photo-1765830403209-a5eceac4c198?w=400&h=400&fit=crop'
-      ]
-    };
-  });
-
-  const [allUsers, setAllUsers] = useState<User[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('allUsers');
-      if (saved) return JSON.parse(saved);
+      title: 'Research Director in Quantum Computing',
+      bio: 'Pionier w dziedzinie obliczeń kwantowych. 50+ publikacji w renomowanych czasopismach.',
+      institution: 'Stanford University',
+      location: 'Stanford, USA',
+      connections: ['1', '2'],
+      profileViews: 3456,
+      citations: 892,
+      skills: ['Quantum Computing', 'Physics', 'Mathematics'],
+      researchInterests: ['Quantum Computing', 'Quantum Algorithms', 'Quantum ML'],
+      experience: [],
+      education: [],
+      publications: [],
+      projects: [],
+      gallery: []
+    },
+    {
+      id: '4',
+      name: 'Dr Maria Kowalczyk',
+      avatar: 'https://images.unsplash.com/photo-1649589244330-09ca58e4fa64?w=100&h=100&fit=crop',
+      coverImage: 'https://images.unsplash.com/photo-1633457896836-f8d6025c85d1?w=1440&h=300&fit=crop',
+      title: 'Biomedical Engineer',
+      bio: 'Badania nad bioniką i protezami inteligentnymi. Interfejsy mózg-komputer.',
+      institution: 'Harvard Medical School',
+      location: 'Boston, USA',
+      connections: [],
+      profileViews: 1234,
+      citations: 234,
+      skills: ['Bioengineering', 'BCI', 'Neuroscience'],
+      researchInterests: ['Brain-Computer Interfaces', 'Prosthetics', 'Rehabilitation'],
+      experience: [],
+      education: [],
+      publications: [],
+      projects: [],
+      gallery: []
+    },
+    {
+      id: '5',
+      name: 'Prof. Tomasz Nowicki',
+      avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop',
+      coverImage: 'https://images.unsplash.com/photo-1631599143424-5bc234fbebf1?w=1440&h=300&fit=crop',
+      title: 'Astrophysics Professor',
+      bio: 'Badania nad ciemną materią i egzoplanetami. Wykładowca na University of Cambridge.',
+      institution: 'University of Cambridge',
+      location: 'Cambridge, UK',
+      connections: [],
+      profileViews: 2890,
+      citations: 1234,
+      skills: ['Astrophysics', 'Data Analysis', 'Research'],
+      researchInterests: ['Dark Matter', 'Exoplanets', 'Cosmology'],
+      experience: [],
+      education: [],
+      publications: [],
+      projects: [],
+      gallery: []
     }
-    return [
-      {
-        id: '2',
-        name: 'Dr Anna Nowak',
-        avatar: 'https://images.unsplash.com/photo-1649589244330-09ca58e4fa64?w=100&h=100&fit=crop',
-        coverImage: 'https://images.unsplash.com/photo-1633457896836-f8d6025c85d1?w=1440&h=300&fit=crop',
-        title: 'Professor of Computer Science',
-        bio: 'Badaczka AI i deep learning. Publikacje w Nature i Science. Kierownik laboratorium AI na MIT.',
-        institution: 'MIT',
-        location: 'Boston, USA',
-        connections: ['1', '3'],
-        profileViews: 2340,
-        citations: 567,
-        skills: ['AI', 'Deep Learning', 'Research', 'Python', 'TensorFlow'],
-        researchInterests: ['Quantum Computing', 'AI', 'Machine Learning'],
-        experience: [],
-        education: [],
-        publications: [],
-        projects: [],
-        gallery: []
-      },
-      {
-        id: '3',
-        name: 'Prof. Piotr Wiśniewski',
-        avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop',
-        coverImage: 'https://images.unsplash.com/photo-1628017975048-74768e00219e?w=1440&h=300&fit=crop',
-        title: 'Research Director in Quantum Computing',
-        bio: 'Pionier w dziedzinie obliczeń kwantowych. 50+ publikacji w renomowanych czasopismach.',
-        institution: 'Stanford University',
-        location: 'Stanford, USA',
-        connections: ['1', '2'],
-        profileViews: 3456,
-        citations: 892,
-        skills: ['Quantum Computing', 'Physics', 'Mathematics'],
-        researchInterests: ['Quantum Computing', 'Quantum Algorithms', 'Quantum ML'],
-        experience: [],
-        education: [],
-        publications: [],
-        projects: [],
-        gallery: []
-      },
-      {
-        id: '4',
-        name: 'Dr Maria Kowalczyk',
-        avatar: 'https://images.unsplash.com/photo-1649589244330-09ca58e4fa64?w=100&h=100&fit=crop',
-        coverImage: 'https://images.unsplash.com/photo-1633457896836-f8d6025c85d1?w=1440&h=300&fit=crop',
-        title: 'Biomedical Engineer',
-        bio: 'Badania nad bioniką i protezami inteligentnymi. Interfejsy mózg-komputer.',
-        institution: 'Harvard Medical School',
-        location: 'Boston, USA',
-        connections: [],
-        profileViews: 1234,
-        citations: 234,
-        skills: ['Bioengineering', 'BCI', 'Neuroscience'],
-        researchInterests: ['Brain-Computer Interfaces', 'Prosthetics', 'Rehabilitation'],
-        experience: [],
-        education: [],
-        publications: [],
-        projects: [],
-        gallery: []
-      },
-      {
-        id: '5',
-        name: 'Prof. Tomasz Nowicki',
-        avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop',
-        coverImage: 'https://images.unsplash.com/photo-1631599143424-5bc234fbebf1?w=1440&h=300&fit=crop',
-        title: 'Astrophysics Professor',
-        bio: 'Badania nad ciemną materią i egzoplanetami. Wykładowca na University of Cambridge.',
-        institution: 'University of Cambridge',
-        location: 'Cambridge, UK',
-        connections: [],
-        profileViews: 2890,
-        citations: 1234,
-        skills: ['Astrophysics', 'Data Analysis', 'Research'],
-        researchInterests: ['Dark Matter', 'Exoplanets', 'Cosmology'],
-        experience: [],
-        education: [],
-        publications: [],
-        projects: [],
-        gallery: []
-      }
-    ];
-  });
+  ]);
 
-  const [posts, setPosts] = useState<Post[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('posts');
-      if (saved) return JSON.parse(saved);
-    }
-    return initialPosts;
-  });
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
 
-  const [savedPosts, setSavedPosts] = useState<string[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('savedPosts');
-      if (saved) return JSON.parse(saved);
-    }
-    return [];
-  });
+  const [savedPosts, setSavedPosts] = useState<string[]>([]);
 
-  const [notifications, setNotifications] = useState<Notification[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('notifications');
-      if (saved) return JSON.parse(saved);
-    }
-    return [];
-  });
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  const [connectionRequests, setConnectionRequests] = useState<ConnectionRequest[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('connectionRequests');
-      if (saved) return JSON.parse(saved);
-    }
-    return [];
-  });
+  const [connectionRequests, setConnectionRequests] = useState<ConnectionRequest[]>([]);
 
-  const [conversations, setConversations] = useState<Conversation[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('conversations');
-      if (saved) return JSON.parse(saved);
-    }
-    return [];
-  });
+  const [conversations, setConversations] = useState<Conversation[]>([]);
 
-  const [messages, setMessages] = useState<Message[]>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('messages');
-      if (saved) return JSON.parse(saved);
-    }
-    return [];
-  });
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const [searchQuery, setSearchQuery] = useState('');
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) setCurrentUser(JSON.parse(savedUser));
+
+      const savedAllUsers = localStorage.getItem('allUsers');
+      if (savedAllUsers) setAllUsers(JSON.parse(savedAllUsers));
+
+      const savedPosts = localStorage.getItem('posts');
+      if (savedPosts) setPosts(JSON.parse(savedPosts));
+
+      const savedSaved = localStorage.getItem('savedPosts');
+      if (savedSaved) setSavedPosts(JSON.parse(savedSaved));
+
+      const savedNotifs = localStorage.getItem('notifications');
+      if (savedNotifs) setNotifications(JSON.parse(savedNotifs));
+
+      const savedReqs = localStorage.getItem('connectionRequests');
+      if (savedReqs) setConnectionRequests(JSON.parse(savedReqs));
+
+      const savedConvos = localStorage.getItem('conversations');
+      if (savedConvos) setConversations(JSON.parse(savedConvos));
+
+      const savedMsgs = localStorage.getItem('messages');
+      if (savedMsgs) setMessages(JSON.parse(savedMsgs));
+
+      setIsInitialized(true);
+    }
+  }, []);
+
   // Save to localStorage
   useEffect(() => {
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
-  }, [currentUser]);
+    if (isInitialized) localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  }, [currentUser, isInitialized]);
 
   useEffect(() => {
-    localStorage.setItem('allUsers', JSON.stringify(allUsers));
-  }, [allUsers]);
+    if (isInitialized) localStorage.setItem('allUsers', JSON.stringify(allUsers));
+  }, [allUsers, isInitialized]);
 
   useEffect(() => {
-    localStorage.setItem('posts', JSON.stringify(posts));
-  }, [posts]);
+    if (isInitialized) localStorage.setItem('posts', JSON.stringify(posts));
+  }, [posts, isInitialized]);
 
   useEffect(() => {
-    localStorage.setItem('savedPosts', JSON.stringify(savedPosts));
-  }, [savedPosts]);
+    if (isInitialized) localStorage.setItem('savedPosts', JSON.stringify(savedPosts));
+  }, [savedPosts, isInitialized]);
 
   useEffect(() => {
-    localStorage.setItem('notifications', JSON.stringify(notifications));
-  }, [notifications]);
+    if (isInitialized) localStorage.setItem('notifications', JSON.stringify(notifications));
+  }, [notifications, isInitialized]);
 
   useEffect(() => {
-    localStorage.setItem('connectionRequests', JSON.stringify(connectionRequests));
-  }, [connectionRequests]);
+    if (isInitialized) localStorage.setItem('connectionRequests', JSON.stringify(connectionRequests));
+  }, [connectionRequests, isInitialized]);
 
   useEffect(() => {
-    localStorage.setItem('conversations', JSON.stringify(conversations));
-  }, [conversations]);
+    if (isInitialized) localStorage.setItem('conversations', JSON.stringify(conversations));
+  }, [conversations, isInitialized]);
 
   useEffect(() => {
-    localStorage.setItem('messages', JSON.stringify(messages));
-  }, [messages]);
+    if (isInitialized) localStorage.setItem('messages', JSON.stringify(messages));
+  }, [messages, isInitialized]);
 
   const updateCurrentUser = (updates: Partial<User>) => {
     setCurrentUser(prev => ({ ...prev, ...updates }));

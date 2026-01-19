@@ -10,7 +10,16 @@ export const initialPosts = [
       bio: 'Badaczka AI i deep learning. Publikacje w Nature i Science.',
       institution: 'MIT',
       connections: ['1', '3'],
-      profileViews: 234
+      profileViews: 234,
+      location: 'Boston, USA',
+      citations: 120,
+      skills: [],
+      researchInterests: [],
+      experience: [],
+      education: [],
+      publications: [],
+      projects: [],
+      gallery: []
     },
     content: `📚 Właśnie opublikowałam nowy artykuł w Nature: "Deep Learning Approaches to Quantum Computing Optimization"
 
@@ -38,7 +47,16 @@ Dziękuję wszystkim współautorom i recenzentom za wspaniałą współpracę!
       bio: 'Pionier w dziedzinie obliczeń kwantowych. 50+ publikacji.',
       institution: 'Stanford University',
       connections: ['1', '2'],
-      profileViews: 567
+      profileViews: 567,
+      location: 'Stanford, USA',
+      citations: 500,
+      skills: [],
+      researchInterests: [],
+      experience: [],
+      education: [],
+      publications: [],
+      projects: [],
+      gallery: []
     },
     content: `🎓 Rekrutacja do naszego zespołu badawczego!
 
@@ -83,7 +101,16 @@ Aplikacje przyjmujemy do 31 stycznia. Link w komentarzu!`,
       bio: 'Badania nad bioniką i protezami inteligentymi.',
       institution: 'Harvard Medical School',
       connections: [],
-      profileViews: 123
+      profileViews: 123,
+      location: 'Boston, USA',
+      citations: 50,
+      skills: [],
+      researchInterests: [],
+      experience: [],
+      education: [],
+      publications: [],
+      projects: [],
+      gallery: []
     },
     content: `🔬 Fascynujące wyniki z naszego ostatniego eksperymentu!
 
@@ -114,7 +141,16 @@ Pełne wyniki wkrótce w Journal of NeuroEngineering and Rehabilitation.
       bio: 'Badaczka AI i deep learning. Publikacje w Nature i Science.',
       institution: 'MIT',
       connections: ['1', '3'],
-      profileViews: 234
+      profileViews: 234,
+      location: 'Boston, USA',
+      citations: 120,
+      skills: [],
+      researchInterests: [],
+      experience: [],
+      education: [],
+      publications: [],
+      projects: [],
+      gallery: []
     },
     content: `📊 Ciekawe dane z naszego surveya o zastosowaniu AI w nauce:
 

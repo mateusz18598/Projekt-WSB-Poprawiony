@@ -158,13 +158,13 @@ export function CreatePostModal({ open, onClose, editPost }: CreatePostModalProp
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-white rounded-xl shadow-2xl border border-gray-100 p-6">
         <DialogHeader>
           <DialogTitle>{editPost ? 'Edytuj post' : 'Utwórz post'}</DialogTitle>
         </DialogHeader>
 
         <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="modal-grid-3">
             <TabsTrigger value="post">Post</TabsTrigger>
             <TabsTrigger value="article">Artykuł naukowy</TabsTrigger>
             <TabsTrigger value="job">Oferta pracy</TabsTrigger>

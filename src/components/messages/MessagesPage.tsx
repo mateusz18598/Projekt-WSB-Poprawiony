@@ -41,7 +41,7 @@ export function MessagesPage() {
   );
 
   return (
-    <div className="container" style={{ height: 'calc(100vh - 5rem)' }}>
+    <div style={{ height: 'calc(100vh - 10rem)' }}>
       <div className="messages-layout h-full">
         {/* Conversations List */}
         <aside className="conversations-sidebar card p-0">
@@ -134,7 +134,7 @@ export function MessagesPage() {
         </aside>
 
         {/* Chat Window */}
-        <main className="card p-0 h-full overflow-hidden">
+        <main className="card p-0 h-full overflow-hidden flex-1">
           {selectedConversation ? (
             <div className="chat-window">
               {/* Chat Header */}
@@ -187,7 +187,7 @@ export function MessagesPage() {
                   value={messageText}
                   onChange={(e) => setMessageText(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  className="flex-1 input-field"
+                  className="flex-1 chat-input"
                 />
                 <Button
                   onClick={handleSendMessage}
