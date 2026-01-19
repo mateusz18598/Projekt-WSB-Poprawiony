@@ -52,32 +52,32 @@ function AppContent() {
         onSearch={handleSearch}
       />
 
-      <div className="max-w-[1440px] mx-auto px-6 py-6">
+      <div className="container app-layout">
         {/* HOME TAB */}
         {activeTab === 'home' && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <aside className="lg:col-span-3">
+          <>
+            <aside className="lg-block hidden">
               <LeftSidebar onNavigate={setActiveTab} />
             </aside>
 
-            <main className="lg:col-span-6 space-y-4">
+            <main className="space-y-4">
               <NewPostCard
                 userAvatar={posts[0]?.author.avatar || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop'}
                 onCreatePost={handleCreatePost}
               />
 
               {posts.length === 0 ? (
-                <div className="bg-white border-2 border-pink-200 rounded-xl p-12 text-center">
+                <div className="card text-center" style={{ padding: '3rem' }}>
                   <div className="text-gray-400 mb-4">
                     <svg className="w-16 h-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
-                  <h3 className="text-gray-900 mb-2">Brak postów</h3>
+                  <h3 className="text-gray-900 mb-2 font-bold">Brak postów</h3>
                   <p className="text-gray-600">Zacznij dodawać treści, aby zobaczyć swój feed</p>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {posts.map((post) => (
                     <PostCard key={post.id} post={post} onEdit={handleEditPost} />
                   ))}
@@ -85,10 +85,10 @@ function AppContent() {
               )}
             </main>
 
-            <aside className="lg:col-span-3 hidden lg:block">
+            <aside className="lg-block hidden">
               <RightSidebar />
             </aside>
-          </div>
+          </>
         )}
 
         {/* PROFILE TAB */}
