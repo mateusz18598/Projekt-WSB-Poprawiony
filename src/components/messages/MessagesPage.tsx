@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -10,6 +10,16 @@ import { useApp } from '../../contexts/AppContext';
 export function MessagesPage() {
   const { currentUser, allUsers, conversations, messages, sendMessage } = useApp();
   const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
+
+  // Debug Logging
+  useEffect(() => {
+    console.log('MessagesPage State:', {
+      messagesCount: messages.length,
+      conversationsCount: conversations.length,
+      selectedConversation,
+      currentUserID: currentUser.id
+    });
+  }, [messages, conversations, selectedConversation, currentUser]);
   const [messageText, setMessageText] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 

@@ -23,6 +23,7 @@ interface NavbarProps {
 export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
   const { currentUser, notifications } = useApp();
   const [searchInput, setSearchInput] = useState('');
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const unreadNotifications = notifications.filter(n => !n.read).length;
 
   const handleSearch = (e: React.FormEvent) => {
@@ -109,7 +110,7 @@ export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
 
         {/* Right Section - User Menu */}
         <div className="navbar-right">
-          <DropdownMenu modal={false}>
+          <DropdownMenu open={isProfileOpen} onOpenChange={setIsProfileOpen} modal={false}>
             <DropdownMenuTrigger asChild>
               <button className="btn btn-ghost" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <img
