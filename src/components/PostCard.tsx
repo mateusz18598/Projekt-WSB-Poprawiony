@@ -200,8 +200,15 @@ export function PostCard({ post, onEdit }: PostCardProps) {
         <button
           className={`btn btn-ghost ${isLiked ? 'text-primary' : ''}`}
           onClick={handleLike}
+          style={{ color: isLiked ? 'var(--primary-color)' : 'inherit' }}
         >
-          <Heart className={`w-5 h-5 mr-2 ${isLiked ? 'fill-current' : ''}`} />
+          <Heart
+            className="w-5 h-5 mr-2"
+            style={{
+              fill: isLiked ? 'currentColor' : 'none',
+              stroke: 'currentColor'
+            }}
+          />
           <span>Lubię to</span>
         </button>
         <button
