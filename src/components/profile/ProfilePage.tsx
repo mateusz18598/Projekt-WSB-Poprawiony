@@ -59,11 +59,11 @@ export function ProfilePage() {
           <img
             src={currentUser.coverImage}
             alt="Cover"
-            className="w-full h-full object-cover"
+            className="profile-cover-img"
           />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
+          <div className="cover-overlay">
             <Button
-              className="opacity-0 group-hover:opacity-100 transition-opacity btn btn-ghost bg-white text-gray-900 hover:bg-gray-100"
+              className="btn btn-ghost bg-white text-gray-900 hover:bg-gray-100"
               onClick={() => setShowEditProfile(true)}
             >
               <Camera className="w-4 h-4 mr-2" />
