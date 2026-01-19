@@ -47,8 +47,8 @@ export function MessagesPage() {
         <aside className="conversations-sidebar card p-0">
           <div className="p-4 border-b border-gray-100">
             <h2 className="text-xl font-bold text-gray-900 mb-3">Wiadomości</h2>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted" />
+            <div className="relative input-with-icon">
+              <Search className="input-icon" />
               <Input
                 type="text"
                 placeholder="Szukaj..."

@@ -117,8 +117,8 @@ export function JobsPage({ onCreateJob }: JobsPageProps) {
         <main className="space-y-4">
           {/* Search and Create */}
           <div className="flex gap-2">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted" />
+            <div className="relative flex-1 input-with-icon">
+              <Search className="input-icon" />
               <Input
                 type="text"
                 placeholder="Szukaj stanowiska lub firmy..."
