@@ -120,10 +120,10 @@ export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
                 <ChevronDown className="w-4 h-4 text-gray-600" />
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56" style={{ backgroundColor: 'white', zIndex: 100 }}>
-              <div className="px-3 py-2">
-                <p className="text-sm text-gray-900 font-bold">{currentUser.name}</p>
-                <p className="text-xs text-gray-500">{currentUser.title}</p>
+            <DropdownMenuContent align="end">
+              <div className="dropdown-header">
+                <p className="dropdown-header-title">{currentUser.name}</p>
+                <p className="dropdown-header-subtitle">{currentUser.title}</p>
               </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => onTabChange('profile')}>
@@ -135,7 +135,7 @@ export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
                 Ustawienia
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-red-600">
+              <DropdownMenuItem className="danger">
                 <LogOut className="w-4 h-4 mr-2" />
                 Wyloguj się
               </DropdownMenuItem>

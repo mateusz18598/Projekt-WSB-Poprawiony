@@ -40,16 +40,16 @@ export function JobsPage({ onCreateJob }: JobsPageProps) {
   });
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <div className="container">
+      <div className="jobs-layout">
         {/* Filters Sidebar */}
-        <aside className="lg:col-span-1 space-y-4">
-          <Card className="bg-white border-pink-200 p-4 sticky top-20">
-            <h3 className="text-lg text-gray-900 mb-4">Filtry</h3>
+        <aside className="filters-card">
+          <Card className="card p-4">
+            <h3 className="font-bold text-gray-900 mb-4">Filtry</h3>
 
             <div className="space-y-4">
               <div>
-                <label className="text-sm text-gray-600 mb-2 block">Lokalizacja</label>
+                <label className="text-sm text-muted mb-2 block">Lokalizacja</label>
                 <Select value={locationFilter} onValueChange={setLocationFilter}>
                   <SelectTrigger>
                     <SelectValue />
@@ -65,7 +65,7 @@ export function JobsPage({ onCreateJob }: JobsPageProps) {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600 mb-2 block">Typ</label>
+                <label className="text-sm text-muted mb-2 block">Typ</label>
                 <Select value={typeFilter} onValueChange={setTypeFilter}>
                   <SelectTrigger>
                     <SelectValue />
@@ -81,7 +81,7 @@ export function JobsPage({ onCreateJob }: JobsPageProps) {
               </div>
 
               <div>
-                <label className="text-sm text-gray-600 mb-2 block">Dziedzina</label>
+                <label className="text-sm text-muted mb-2 block">Dziedzina</label>
                 <Select value={fieldFilter} onValueChange={setFieldFilter}>
                   <SelectTrigger>
                     <SelectValue />
@@ -104,7 +104,8 @@ export function JobsPage({ onCreateJob }: JobsPageProps) {
                   setSearchQuery('');
                 }}
                 variant="outline"
-                className="w-full"
+                className="w-full btn btn-ghost justify-center"
+                style={{ border: '1px solid var(--border-color)' }}
               >
                 Wyczyść filtry
               </Button>
@@ -113,81 +114,85 @@ export function JobsPage({ onCreateJob }: JobsPageProps) {
         </aside>
 
         {/* Jobs List */}
-        <main className="lg:col-span-3 space-y-4">
+        <main className="space-y-4">
           {/* Search and Create */}
           <div className="flex gap-2">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted" />
               <Input
                 type="text"
                 placeholder="Szukaj stanowiska lub firmy..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="search-input w-full"
+                style={{ height: 'auto', padding: '0.75rem 0.75rem 0.75rem 2.5rem' }}
               />
             </div>
-            <Button onClick={onCreateJob} className="bg-pink-600 hover:bg-pink-700 text-white">
+            <Button onClick={onCreateJob} className="btn btn-primary">
               Dodaj ofertę
             </Button>
           </div>
 
           {/* Jobs Cards */}
           {filteredJobs.length === 0 ? (
-            <Card className="bg-white border-pink-200 p-12 text-center">
-              <Briefcase className="w-16 h-16 mx-auto text-gray-300 mb-4" />
-              <h3 className="text-gray-900 mb-2">Brak ofert pracy</h3>
-              <p className="text-gray-600">Zmień filtry lub dodaj nową ofertę</p>
-            </Card>
+            <div className="card text-center p-4">
+              <div className="text-gray-400 mb-4 flex justify-center">
+                <Briefcase className="w-16 h-16" />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-2">Brak ofert pracy</h3>
+              <p className="text-muted">Zmień filtry lub dodaj nową ofertę</p>
+            </div>
           ) : (
             filteredJobs.map((job) => (
-              <Card key={job.id} className="bg-white border-pink-200 p-6 hover:shadow-lg transition-shadow">
-                <div className="flex items-start justify-between">
+              <div key={job.id} className="card job-card">
+                <div className="job-header">
                   <div className="flex gap-4 flex-1">
-                    <div className="w-16 h-16 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Briefcase className="w-8 h-8 text-pink-600" />
+                    <div className="job-icon">
+                      <Briefcase className="w-8 h-8 text-primary" />
                     </div>
 
-                    <div className="flex-1">
-                      <h3 className="text-xl text-gray-900 mb-1">{job.jobDetails?.position}</h3>
-                      <p className="text-gray-700 mb-2">{job.jobDetails?.company}</p>
+                    <div className="job-details">
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">{job.jobDetails?.position}</h3>
+                      <p className="text-gray-700 mb-2 font-medium">{job.jobDetails?.company}</p>
 
-                      <div className="flex flex-wrap gap-3 text-sm text-gray-600 mb-3">
-                        <span className="flex items-center gap-1">
+                      <div className="job-tags">
+                        <span className="job-tag">
                           <MapPin className="w-4 h-4" />
                           {job.jobDetails?.location}
                         </span>
-                        <span className="flex items-center gap-1">
+                        <span className="job-tag">
                           <Briefcase className="w-4 h-4" />
                           {job.jobDetails?.jobType}
                         </span>
-                        <span className="flex items-center gap-1">
+                        <span className="job-tag">
                           <Clock className="w-4 h-4" />
                           {job.timeAgo}
                         </span>
                       </div>
 
                       {job.jobDetails?.salary && (
-                        <p className="text-pink-600 mb-2">{job.jobDetails.salary}</p>
+                        <p className="text-primary font-bold mb-2">{job.jobDetails.salary}</p>
                       )}
 
                       <p className="text-gray-700 line-clamp-2">{job.content}</p>
 
                       <div className="flex gap-2 mt-4">
-                        <Button className="bg-pink-600 hover:bg-pink-700 text-white">
+                        <Button className="btn btn-primary">
                           Aplikuj
                         </Button>
                         <Button
                           variant="outline"
                           onClick={() => toggleSavePost(job.id)}
-                          className={savedPosts.includes(job.id) ? 'border-pink-600 text-pink-600' : ''}
+                          className={`btn btn-ghost ${savedPosts.includes(job.id) ? 'text-primary' : ''}`}
+                          style={{ border: '1px solid var(--border-color)' }}
                         >
-                          <Bookmark className={`w-4 h-4 ${savedPosts.includes(job.id) ? 'fill-pink-600' : ''}`} />
+                          <Bookmark className={`w-4 h-4 ${savedPosts.includes(job.id) ? 'fill-current' : ''}`} />
                         </Button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </Card>
+              </div>
             ))
           )}
         </main>

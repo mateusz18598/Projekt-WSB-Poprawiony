@@ -51,19 +51,19 @@ export function ProfilePage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="container space-y-6">
       {/* Header Profile */}
-      <Card className="bg-white border-pink-200 overflow-hidden">
+      <Card className="card p-0 overflow-hidden">
         {/* Cover Image */}
-        <div className="relative h-48 md:h-64 bg-gradient-to-r from-pink-400 to-pink-600 group">
+        <div className="profile-cover group">
           <img
             src={currentUser.coverImage}
             alt="Cover"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
             <Button
-              className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-gray-900 hover:bg-gray-100"
+              className="opacity-0 group-hover:opacity-100 transition-opacity btn btn-ghost bg-white text-gray-900 hover:bg-gray-100"
               onClick={() => setShowEditProfile(true)}
             >
               <Camera className="w-4 h-4 mr-2" />
@@ -76,17 +76,17 @@ export function ProfilePage() {
         <div className="relative px-6 pb-6">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between">
             {/* Avatar */}
-            <div className="relative -mt-16 md:-mt-20">
-              <div className="relative group">
+            <div className="profile-avatar-container">
+              <div className="relative group inline-block">
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
-                  className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white object-cover shadow-lg"
+                  className="profile-avatar"
                 />
-                <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center">
                   <Button
                     size="sm"
-                    className="opacity-0 group-hover:opacity-100 transition-opacity bg-white text-gray-900 hover:bg-gray-100"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity btn btn-ghost bg-white text-gray-900 hover:bg-gray-100 rounded-full p-2"
                     onClick={() => setShowEditProfile(true)}
                   >
                     <Camera className="w-4 h-4" />
@@ -96,10 +96,10 @@ export function ProfilePage() {
             </div>
 
             {/* Action Buttons */}
-            <div className="mt-4 md:mt-0 flex gap-2">
+            <div className="profile-actions">
               <Button
                 onClick={() => setShowEditProfile(true)}
-                className="bg-pink-600 hover:bg-pink-700 text-white rounded-xl"
+                className="btn btn-primary rounded-xl"
               >
                 <Edit className="w-4 h-4 mr-2" />
                 Edytuj profil
@@ -109,14 +109,14 @@ export function ProfilePage() {
 
           {/* Name and Title */}
           <div className="mt-4">
-            <h1 className="text-3xl text-gray-900">{currentUser.name}</h1>
+            <h1 className="text-3xl font-bold text-gray-900">{currentUser.name}</h1>
             <p className="text-lg text-gray-700 mt-1">{currentUser.title}</p>
-            <div className="flex flex-wrap items-center gap-4 mt-2 text-gray-600">
-              <span className="flex items-center gap-1">
+            <div className="profile-stats">
+              <span className="profile-stat-item">
                 <MapPin className="w-4 h-4" />
                 {currentUser.location}
               </span>
-              <span className="flex items-center gap-1">
+              <span className="profile-stat-item">
                 <Link2 className="w-4 h-4" />
                 {currentUser.connections.length} połączeń
               </span>
@@ -126,14 +126,14 @@ export function ProfilePage() {
       </Card>
 
       {/* About Section */}
-      <Card className="bg-white border-pink-200 p-6">
+      <Card className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl text-gray-900">O mnie</h2>
+          <h2 className="text-xl font-bold text-gray-900">O mnie</h2>
           <Button
             size="sm"
             variant="ghost"
             onClick={() => setShowEditProfile(true)}
-            className="text-pink-600 hover:text-pink-700 hover:bg-pink-50"
+            className="btn btn-ghost text-primary"
           >
             <Edit className="w-4 h-4 mr-1" />
             Edytuj
@@ -159,16 +159,16 @@ export function ProfilePage() {
       </Card>
 
       {/* Experience Section */}
-      <Card className="bg-white border-pink-200 p-6">
+      <Card className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl text-gray-900">Doświadczenie</h2>
+          <h2 className="text-xl font-bold text-gray-900">Doświadczenie</h2>
           <Button
             size="sm"
             onClick={() => {
               setEditingItem(null);
               setShowExperienceModal(true);
             }}
-            className="bg-pink-600 hover:bg-pink-700 text-white"
+            className="btn btn-primary"
           >
             <Plus className="w-4 h-4 mr-1" />
             Dodaj
@@ -176,7 +176,7 @@ export function ProfilePage() {
         </div>
 
         {currentUser.experience.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-muted">
             <p>Brak dodanego doświadczenia</p>
           </div>
         ) : (
@@ -184,12 +184,12 @@ export function ProfilePage() {
             {currentUser.experience.map((exp) => (
               <div key={exp.id} className="flex gap-4 group">
                 <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
-                  <span className="text-pink-600 text-xl">🏢</span>
+                  <span className="text-primary text-xl">🏢</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-gray-900">{exp.position}</h3>
+                  <h3 className="font-bold text-gray-900">{exp.position}</h3>
                   <p className="text-gray-700">{exp.institution}</p>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-muted mt-1">
                     {exp.startDate} - {exp.current ? 'obecnie' : exp.endDate}
                   </p>
                   <p className="text-gray-600 mt-2">{exp.description}</p>
@@ -199,6 +199,7 @@ export function ProfilePage() {
                     size="sm"
                     variant="ghost"
                     onClick={() => handleEditExperience(exp)}
+                    className="btn btn-ghost p-2"
                   >
                     <Edit className="w-4 h-4" />
                   </Button>
@@ -210,7 +211,7 @@ export function ProfilePage() {
                         deleteExperience(exp.id);
                       }
                     }}
-                    className="text-red-600 hover:text-red-700"
+                    className="btn btn-ghost text-red-600 hover:text-red-700 p-2"
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>
@@ -222,16 +223,16 @@ export function ProfilePage() {
       </Card>
 
       {/* Education Section */}
-      <Card className="bg-white border-pink-200 p-6">
+      <Card className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl text-gray-900">Wykształcenie</h2>
+          <h2 className="text-xl font-bold text-gray-900">Wykształcenie</h2>
           <Button
             size="sm"
             onClick={() => {
               setEditingItem(null);
               setShowEducationModal(true);
             }}
-            className="bg-pink-600 hover:bg-pink-700 text-white"
+            className="btn btn-primary"
           >
             <Plus className="w-4 h-4 mr-1" />
             Dodaj
@@ -239,7 +240,7 @@ export function ProfilePage() {
         </div>
 
         {currentUser.education.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-muted">
             <p>Brak dodanego wykształcenia</p>
           </div>
         ) : (
@@ -247,12 +248,12 @@ export function ProfilePage() {
             {currentUser.education.map((edu) => (
               <div key={edu.id} className="flex gap-4 group">
                 <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center">
-                  <span className="text-pink-600 text-xl">🎓</span>
+                  <span className="text-primary text-xl">🎓</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-gray-900">{edu.institution}</h3>
+                  <h3 className="font-bold text-gray-900">{edu.institution}</h3>
                   <p className="text-gray-700">{edu.degree} • {edu.field}</p>
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-muted mt-1">
                     {edu.startYear} - {edu.current ? 'obecnie' : edu.endYear}
                   </p>
                 </div>
@@ -261,6 +262,7 @@ export function ProfilePage() {
                     size="sm"
                     variant="ghost"
                     onClick={() => handleEditEducation(edu)}
+                    className="btn btn-ghost p-2"
                   >
                     <Edit className="w-4 h-4" />
                   </Button>
@@ -272,7 +274,7 @@ export function ProfilePage() {
                         deleteEducation(edu.id);
                       }
                     }}
-                    className="text-red-600 hover:text-red-700"
+                    className="btn btn-ghost text-red-600 hover:text-red-700 p-2"
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>
@@ -284,16 +286,16 @@ export function ProfilePage() {
       </Card>
 
       {/* Publications Section */}
-      <Card className="bg-white border-pink-200 p-6">
+      <Card className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl text-gray-900">Publikacje i Artykuły</h2>
+          <h2 className="text-xl font-bold text-gray-900">Publikacje i Artykuły</h2>
           <Button
             size="sm"
             onClick={() => {
               setEditingItem(null);
               setShowPublicationModal(true);
             }}
-            className="bg-pink-600 hover:bg-pink-700 text-white"
+            className="btn btn-primary"
           >
             <Plus className="w-4 h-4 mr-1" />
             Dodaj
@@ -301,7 +303,7 @@ export function ProfilePage() {
         </div>
 
         {currentUser.publications.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-muted">
             <p>Brak dodanych publikacji</p>
           </div>
         ) : (
@@ -310,9 +312,9 @@ export function ProfilePage() {
               <div key={pub.id} className="p-4 bg-pink-50 rounded-lg group hover:bg-pink-100 transition-colors">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-gray-900">{pub.title}</h3>
+                    <h3 className="font-bold text-gray-900">{pub.title}</h3>
                     <p className="text-sm text-gray-600 mt-1">{pub.authors.join(', ')}</p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-muted mt-1">
                       {pub.journal} • {pub.year}
                     </p>
                     {pub.doi && (
@@ -320,19 +322,20 @@ export function ProfilePage() {
                         href={`https://doi.org/${pub.doi}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-pink-600 hover:text-pink-700 flex items-center gap-1 mt-1"
+                        className="text-sm text-primary hover:text-pink-700 flex items-center gap-1 mt-1"
                       >
                         DOI: {pub.doi}
                         <ExternalLink className="w-3 h-3" />
                       </a>
                     )}
-                    <p className="text-xs text-gray-500 mt-2">{pub.citations} cytowań</p>
+                    <p className="text-xs text-muted mt-2">{pub.citations} cytowań</p>
                   </div>
                   <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     <Button
                       size="sm"
                       variant="ghost"
                       onClick={() => handleEditPublication(pub)}
+                      className="btn btn-ghost p-2"
                     >
                       <Edit className="w-4 h-4" />
                     </Button>
@@ -344,7 +347,7 @@ export function ProfilePage() {
                           deletePublication(pub.id);
                         }
                       }}
-                      className="text-red-600 hover:text-red-700"
+                      className="btn btn-ghost text-red-600 hover:text-red-700 p-2"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -357,14 +360,14 @@ export function ProfilePage() {
       </Card>
 
       {/* Skills Section */}
-      <Card className="bg-white border-pink-200 p-6">
+      <Card className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl text-gray-900">Umiejętności</h2>
+          <h2 className="text-xl font-bold text-gray-900">Umiejętności</h2>
           <Button
             size="sm"
             variant="ghost"
             onClick={() => setShowEditProfile(true)}
-            className="text-pink-600 hover:text-pink-700 hover:bg-pink-50"
+            className="btn btn-ghost text-primary"
           >
             <Edit className="w-4 h-4 mr-1" />
             Edytuj
@@ -374,7 +377,7 @@ export function ProfilePage() {
           {currentUser.skills.map((skill, index) => (
             <span
               key={index}
-              className="px-4 py-2 bg-white border-2 border-pink-200 text-gray-700 rounded-xl hover:border-pink-400 transition-colors"
+              className="skill-tag"
             >
               {skill}
             </span>
@@ -383,16 +386,16 @@ export function ProfilePage() {
       </Card>
 
       {/* Projects Section */}
-      <Card className="bg-white border-pink-200 p-6">
+      <Card className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl text-gray-900">Projekty badawcze</h2>
+          <h2 className="text-xl font-bold text-gray-900">Projekty badawcze</h2>
           <Button
             size="sm"
             onClick={() => {
               setEditingItem(null);
               setShowProjectModal(true);
             }}
-            className="bg-pink-600 hover:bg-pink-700 text-white"
+            className="btn btn-primary"
           >
             <Plus className="w-4 h-4 mr-1" />
             Dodaj
@@ -400,29 +403,30 @@ export function ProfilePage() {
         </div>
 
         {currentUser.projects.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-muted">
             <p>Brak dodanych projektów</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {currentUser.projects.map((project) => (
-              <div key={project.id} className="p-4 border-2 border-pink-200 rounded-xl group hover:border-pink-400 transition-colors">
+              <div key={project.id} className="p-4 border border-gray-100 rounded-xl group hover:border-pink-200 transition-colors">
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-gray-900">{project.name}</h3>
+                  <h3 className="font-bold text-gray-900">{project.name}</h3>
                   <span className={`px-2 py-1 text-xs rounded-full ${project.status === 'active' ? 'bg-green-100 text-green-700' :
-                      project.status === 'completed' ? 'bg-blue-100 text-blue-700' :
-                        'bg-gray-100 text-gray-700'
+                    project.status === 'completed' ? 'bg-blue-100 text-blue-700' :
+                      'bg-gray-100 text-gray-700'
                     }`}>
                     {project.status === 'active' ? 'Aktywny' : project.status === 'completed' ? 'Zakończony' : 'Planowany'}
                   </span>
                 </div>
                 <p className="text-sm text-gray-600 mb-2">{project.description}</p>
-                <p className="text-xs text-gray-500">Zespół: {project.team.length} osób</p>
+                <p className="text-xs text-muted">Zespół: {project.team.length} osób</p>
                 <div className="flex gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Button
                     size="sm"
                     variant="ghost"
                     onClick={() => handleEditProject(project)}
+                    className="btn btn-ghost p-2"
                   >
                     <Edit className="w-4 h-4" />
                   </Button>
@@ -434,7 +438,7 @@ export function ProfilePage() {
                         deleteProject(project.id);
                       }
                     }}
-                    className="text-red-600 hover:text-red-700"
+                    className="btn btn-ghost text-red-600 hover:text-red-700 p-2"
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>
@@ -446,13 +450,13 @@ export function ProfilePage() {
       </Card>
 
       {/* Gallery Section */}
-      <Card className="bg-white border-pink-200 p-6">
+      <Card className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl text-gray-900">Galeria</h2>
+          <h2 className="text-xl font-bold text-gray-900">Galeria</h2>
           <Button
             size="sm"
             onClick={() => setShowGalleryModal(true)}
-            className="bg-pink-600 hover:bg-pink-700 text-white"
+            className="btn btn-primary"
           >
             <Plus className="w-4 h-4 mr-1" />
             Dodaj zdjęcie
@@ -460,7 +464,7 @@ export function ProfilePage() {
         </div>
 
         {currentUser.gallery.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-muted">
             <p>Brak zdjęć w galerii</p>
           </div>
         ) : (
@@ -473,11 +477,11 @@ export function ProfilePage() {
                   className="w-full h-full object-cover rounded-lg cursor-pointer"
                   onClick={() => openLightbox(index)}
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all rounded-lg flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all rounded-lg flex items-center justify-center">
                   <Button
                     size="sm"
                     variant="ghost"
-                    className="opacity-0 group-hover:opacity-100 transition-opacity text-white hover:text-white hover:bg-red-600"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity text-white hover:text-white hover:bg-red-600 btn btn-ghost p-2"
                     onClick={(e) => {
                       e.stopPropagation();
                       if (confirm('Czy na pewno chcesz usunąć to zdjęcie?')) {

@@ -598,6 +598,80 @@ body {
     border-bottom-color: var(--primary-color);
 }
 
+
+/* Jobs Page */
+.jobs-layout {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+@media (max-width: 1024px) {
+    .jobs-layout {
+        flex-direction: column;
+    }
+
+    .filters-card {
+        width: 100%;
+        position: static;
+    }
+}
+
+.filters-card {
+    width: 300px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 5rem;
+}
+
+.job-card {
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: box-shadow 0.2s;
+}
+
+.job-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.job-icon {
+    flex-shrink: 0;
+    padding-top: 0.25rem;
+}
+
+.job-details {
+    flex: 1;
+}
+
+.job-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.job-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.625rem;
+    background-color: var(--secondary-bg);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
 /* Network Grid */
 .network-grid {
     display: grid;
@@ -699,6 +773,78 @@ body {
     margin-right: 0.5rem;
 }
 
-.mr-3 {
-    margin-right: 0.75rem;
+
+/* Dropdown Menu */
+.dropdown-content {
+    z-index: 50;
+    min-width: 8rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    border: 1px solid var(--secondary-bg);
+    background-color: var(--white);
+    padding: 0.25rem;
+    box-shadow: var(--shadow-md);
+    animation-name: slideIn;
+    animation-duration: 0.2s;
+}
+
+.dropdown-item {
+    position: relative;
+    display: flex;
+    cursor: default;
+    user-select: none;
+    align-items: center;
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: background-color 0.2s, color 0.2s;
+    color: var(--text-main);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--secondary-bg);
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+.dropdown-item.danger {
+    color: #ef4444;
+    /* red-500 */
+}
+
+.dropdown-item.danger:hover,
+.dropdown-item.danger:focus {
+    color: #ef4444;
+    background-color: #fef2f2;
+    /* red-50 */
+}
+
+.dropdown-separator {
+    margin: 0.25rem -0.25rem;
+    height: 1px;
+    background-color: var(--secondary-bg);
+}
+
+.dropdown-label {
+    padding: 0.5rem 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.dropdown-header {
+    padding: 0.5rem 0.5rem;
+}
+
+.dropdown-header-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.dropdown-header-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
