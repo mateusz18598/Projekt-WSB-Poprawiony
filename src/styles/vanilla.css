@@ -1225,3 +1225,74 @@ body {
     height: 1rem;
     color: var(--primary-color);
 }
+
+/* Input and Textarea Styles */
+.form-input {
+    display: flex;
+    height: 2.25rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--white);
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    outline: none;
+    color: var(--text-main);
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.form-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.1);
+    /* Pink ring */
+}
+
+.form-input::placeholder {
+    color: var(--text-muted);
+}
+
+.form-input:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.form-textarea {
+    display: flex;
+    min-height: 5rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--white);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    outline: none;
+    color: var(--text-main);
+    resize: vertical;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.form-textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.1);
+    /* Pink ring */
+}
+
+.form-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* Label Styles */
+.form-label {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--text-main);
+    user-select: none;
+    margin-bottom: 0.5rem;
+}
+
+.form-label[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
