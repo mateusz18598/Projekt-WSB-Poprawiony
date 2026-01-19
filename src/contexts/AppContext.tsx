@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { initialPosts } from '../data/mockData';
 
@@ -192,8 +194,11 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User>(() => {
-    const saved = localStorage.getItem('currentUser');
-    const user = saved ? JSON.parse(saved) : {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('currentUser');
+      if (saved) return JSON.parse(saved);
+    }
+    return {
       id: '1',
       name: 'Dr Jan Kowalski',
       avatar: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop',
@@ -281,24 +286,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
         'https://images.unsplash.com/photo-1765830403209-a5eceac4c198?w=400&h=400&fit=crop'
       ]
     };
-    
-    // Ensure all required arrays exist (migration for old data)
-    return {
-      ...user,
-      skills: user.skills || [],
-      researchInterests: user.researchInterests || [],
-      experience: user.experience || [],
-      education: user.education || [],
-      publications: user.publications || [],
-      projects: user.projects || [],
-      gallery: user.gallery || [],
-      connections: user.connections || []
-    };
   });
 
   const [allUsers, setAllUsers] = useState<User[]>(() => {
-    const saved = localStorage.getItem('allUsers');
-    return saved ? JSON.parse(saved) : [
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('allUsers');
+      if (saved) return JSON.parse(saved);
+    }
+    return [
       {
         id: '2',
         name: 'Dr Anna Nowak',
@@ -383,36 +378,51 @@ export function AppProvider({ children }: { children: ReactNode }) {
   });
 
   const [posts, setPosts] = useState<Post[]>(() => {
-    const saved = localStorage.getItem('posts');
-    if (saved) {
-      return JSON.parse(saved);
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('posts');
+      if (saved) return JSON.parse(saved);
     }
     return initialPosts;
   });
 
   const [savedPosts, setSavedPosts] = useState<string[]>(() => {
-    const saved = localStorage.getItem('savedPosts');
-    return saved ? JSON.parse(saved) : [];
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('savedPosts');
+      if (saved) return JSON.parse(saved);
+    }
+    return [];
   });
 
   const [notifications, setNotifications] = useState<Notification[]>(() => {
-    const saved = localStorage.getItem('notifications');
-    return saved ? JSON.parse(saved) : [];
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('notifications');
+      if (saved) return JSON.parse(saved);
+    }
+    return [];
   });
 
   const [connectionRequests, setConnectionRequests] = useState<ConnectionRequest[]>(() => {
-    const saved = localStorage.getItem('connectionRequests');
-    return saved ? JSON.parse(saved) : [];
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('connectionRequests');
+      if (saved) return JSON.parse(saved);
+    }
+    return [];
   });
 
   const [conversations, setConversations] = useState<Conversation[]>(() => {
-    const saved = localStorage.getItem('conversations');
-    return saved ? JSON.parse(saved) : [];
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('conversations');
+      if (saved) return JSON.parse(saved);
+    }
+    return [];
   });
 
   const [messages, setMessages] = useState<Message[]>(() => {
-    const saved = localStorage.getItem('messages');
-    return saved ? JSON.parse(saved) : [];
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('messages');
+      if (saved) return JSON.parse(saved);
+    }
+    return [];
   });
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -479,10 +489,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setPosts(prev => prev.map(post => {
       if (post.id === postId) {
         const liked = post.likes.includes(currentUser.id);
-        const newLikes = liked 
+        const newLikes = liked
           ? post.likes.filter(id => id !== currentUser.id)
           : [...post.likes, currentUser.id];
-        
+
         if (!liked && post.author.id !== currentUser.id) {
           const notification: Notification = {
             id: `notif-${Date.now()}`,
@@ -496,7 +506,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
           };
           setNotifications(prev => [notification, ...prev]);
         }
-        
+
         return { ...post, likes: newLikes };
       }
       return post;
@@ -514,7 +524,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       timestamp,
       replies: []
     };
-    
+
     setPosts(prev => prev.map(post => {
       if (post.id === postId) {
         if (post.author.id !== currentUser.id) {
@@ -537,16 +547,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   };
 
   const deleteComment = (postId: string, commentId: string) => {
-    setPosts(prev => prev.map(post => 
-      post.id === postId 
+    setPosts(prev => prev.map(post =>
+      post.id === postId
         ? { ...post, comments: post.comments.filter(c => c.id !== commentId) }
         : post
     ));
   };
 
   const toggleSavePost = (postId: string) => {
-    setSavedPosts(prev => 
-      prev.includes(postId) 
+    setSavedPosts(prev =>
+      prev.includes(postId)
         ? prev.filter(id => id !== postId)
         : [...prev, postId]
     );
@@ -571,7 +581,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       mutualConnections
     };
     setConnectionRequests(prev => [...prev, request]);
-    
+
     const notification: Notification = {
       id: `notif-${timestamp}`,
       type: 'connection',
@@ -591,19 +601,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ...prev,
         connections: [...prev.connections, request.from.id]
       }));
-      setAllUsers(prev => prev.map(u => 
-        u.id === request.from.id 
+      setAllUsers(prev => prev.map(u =>
+        u.id === request.from.id
           ? { ...u, connections: [...u.connections, currentUser.id] }
           : u
       ));
-      setConnectionRequests(prev => prev.map(r => 
+      setConnectionRequests(prev => prev.map(r =>
         r.id === requestId ? { ...r, status: 'accepted' as const } : r
       ));
     }
   };
 
   const rejectConnectionRequest = (requestId: string) => {
-    setConnectionRequests(prev => prev.map(r => 
+    setConnectionRequests(prev => prev.map(r =>
       r.id === requestId ? { ...r, status: 'rejected' as const } : r
     ));
   };
@@ -617,8 +627,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ...prev,
       connections: prev.connections.filter(id => id !== userId)
     }));
-    setAllUsers(prev => prev.map(u => 
-      u.id === userId 
+    setAllUsers(prev => prev.map(u =>
+      u.id === userId
         ? { ...u, connections: u.connections.filter(id => id !== currentUser.id) }
         : u
     ));
@@ -627,7 +637,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const sendMessage = (to: string, content: string) => {
     const timestamp = Date.now();
     const conversationId = [currentUser.id, to].sort().join('-');
-    
+
     const newMessage: Message = {
       id: `msg-${timestamp}`,
       conversationId,
@@ -637,14 +647,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
       timestamp,
       read: false
     };
-    
+
     setMessages(prev => [...prev, newMessage]);
-    
+
     setConversations(prev => {
       const existing = prev.find(c => c.id === conversationId);
       if (existing) {
-        return prev.map(c => 
-          c.id === conversationId 
+        return prev.map(c =>
+          c.id === conversationId
             ? { ...c, lastMessage: newMessage, unreadCount: c.unreadCount + 1 }
             : c
         );

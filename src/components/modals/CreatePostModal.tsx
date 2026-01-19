@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Button } from '../ui/button';
@@ -24,7 +26,7 @@ export function CreatePostModal({ open, onClose, editPost }: CreatePostModalProp
   const [imageInput, setImageInput] = useState('');
   const [youtubeUrl, setYoutubeUrl] = useState(editPost?.youtubeUrl || '');
   const [pdfUrl, setPdfUrl] = useState(editPost?.pdfUrl || '');
-  
+
   // Article fields
   const [articleTitle, setArticleTitle] = useState('');
   const [abstract, setAbstract] = useState(editPost?.articleDetails?.abstract || '');
@@ -34,7 +36,7 @@ export function CreatePostModal({ open, onClose, editPost }: CreatePostModalProp
   const [journal, setJournal] = useState(editPost?.articleDetails?.journal || '');
   const [coAuthors, setCoAuthors] = useState<string[]>(editPost?.articleDetails?.coAuthors || []);
   const [coAuthorInput, setCoAuthorInput] = useState('');
-  
+
   // Job fields
   const [jobPosition, setJobPosition] = useState(editPost?.jobDetails?.position || '');
   const [jobCompany, setJobCompany] = useState(editPost?.jobDetails?.company || '');
@@ -482,8 +484,8 @@ export function CreatePostModal({ open, onClose, editPost }: CreatePostModalProp
 
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={onClose}>Anuluj</Button>
-          <Button 
-            onClick={handleSubmit} 
+          <Button
+            onClick={handleSubmit}
             className="bg-pink-600 hover:bg-pink-700 text-white"
           >
             {editPost ? 'Zapisz zmiany' : 'Opublikuj'}

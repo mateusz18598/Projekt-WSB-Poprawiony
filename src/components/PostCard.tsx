@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Heart, MessageCircle, Share2, Send, Bookmark, MoreVertical, Edit2, Trash2, Briefcase, FileText, Download } from 'lucide-react';
 import { Card } from './ui/card';
@@ -20,7 +22,7 @@ export function PostCard({ post, onEdit }: PostCardProps) {
   const { currentUser, likePost, addComment, deleteComment, deletePost, savedPosts, toggleSavePost } = useApp();
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
-  
+
   const isLiked = post.likes.includes(currentUser.id);
   const isSaved = savedPosts.includes(post.id);
   const isAuthor = post.author.id === currentUser.id;
@@ -83,7 +85,7 @@ export function PostCard({ post, onEdit }: PostCardProps) {
                     <Edit2 className="w-4 h-4 mr-2" />
                     Edytuj
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={() => {
                       if (confirm('Czy na pewno chcesz usunąć ten post?')) {
                         deletePost(post.id);
@@ -130,12 +132,11 @@ export function PostCard({ post, onEdit }: PostCardProps) {
 
       {/* Images Gallery */}
       {post.images && post.images.length > 0 && (
-        <div className={`grid gap-2 ${
-          post.images.length === 1 ? 'grid-cols-1' :
-          post.images.length === 2 ? 'grid-cols-2' :
-          post.images.length === 3 ? 'grid-cols-3' :
-          'grid-cols-2'
-        }`}>
+        <div className={`grid gap-2 ${post.images.length === 1 ? 'grid-cols-1' :
+            post.images.length === 2 ? 'grid-cols-2' :
+              post.images.length === 3 ? 'grid-cols-3' :
+                'grid-cols-2'
+          }`}>
           {post.images.slice(0, 4).map((img, index) => (
             <div key={index} className="relative">
               <img
@@ -199,32 +200,32 @@ export function PostCard({ post, onEdit }: PostCardProps) {
 
       {/* Actions */}
       <div className="px-4 py-2 border-t border-pink-100 flex items-center justify-around">
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           className={`flex items-center gap-2 ${isLiked ? 'text-pink-600' : 'text-gray-600'} hover:text-pink-600 hover:bg-pink-50`}
           onClick={handleLike}
         >
           <Heart className={`w-5 h-5 ${isLiked ? 'fill-pink-600' : ''}`} />
           <span>Lubię to</span>
         </Button>
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           className="flex items-center gap-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50"
           onClick={() => setShowComments(!showComments)}
         >
           <MessageCircle className="w-5 h-5" />
           <span>Komentuj</span>
         </Button>
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           className="flex items-center gap-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50"
           onClick={handleShare}
         >
           <Share2 className="w-5 h-5" />
           <span>Udostępnij</span>
         </Button>
-        <Button 
-          variant="ghost" 
+        <Button
+          variant="ghost"
           className={`flex items-center gap-2 ${isSaved ? 'text-pink-600' : 'text-gray-600'} hover:text-pink-600 hover:bg-pink-50`}
           onClick={() => toggleSavePost(post.id)}
         >
@@ -251,7 +252,7 @@ export function PostCard({ post, onEdit }: PostCardProps) {
                 rows={2}
                 className="flex-1"
               />
-              <Button 
+              <Button
                 onClick={handleComment}
                 disabled={!commentText.trim()}
                 className="bg-pink-600 hover:bg-pink-700 text-white"

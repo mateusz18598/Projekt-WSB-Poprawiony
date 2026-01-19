@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Button } from '../ui/button';
@@ -45,7 +47,7 @@ export function PublicationModal({ open, onClose, editItem }: PublicationModalPr
         <DialogHeader>
           <DialogTitle>{editItem ? 'Edytuj publikację' : 'Dodaj publikację'}</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4 py-4">
           <div>
             <Label>Tytuł *</Label>
@@ -113,8 +115,8 @@ export function PublicationModal({ open, onClose, editItem }: PublicationModalPr
 
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={onClose}>Anuluj</Button>
-          <Button 
-            onClick={handleSave} 
+          <Button
+            onClick={handleSave}
             className="bg-pink-600 hover:bg-pink-700 text-white"
             disabled={!formData.title || !formData.journal || !formData.year}
           >

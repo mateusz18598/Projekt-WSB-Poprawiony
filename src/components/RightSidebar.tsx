@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { ExternalLink, TrendingUp } from 'lucide-react';
@@ -5,7 +7,7 @@ import { useApp } from '../contexts/AppContext';
 
 export function RightSidebar() {
   const { allUsers, currentUser, sendConnectionRequest } = useApp();
-  
+
   const suggestions = allUsers
     .filter(u => u.id !== currentUser.id && !currentUser.connections.includes(u.id))
     .slice(0, 3);

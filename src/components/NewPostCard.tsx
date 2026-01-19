@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Image, Video, FileText, Briefcase } from 'lucide-react';

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Home, Users, Briefcase, MessageSquare, Bell, Search, ChevronDown, User, Settings, LogOut } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -35,7 +37,7 @@ export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
         <div className="flex items-center justify-between h-16">
           {/* Left Section */}
           <div className="flex items-center gap-6">
-            <div 
+            <div
               className="flex items-center gap-2 cursor-pointer group"
               onClick={() => onTabChange('home')}
             >
@@ -44,7 +46,7 @@ export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
               </div>
               <span className="hidden lg:block text-xl text-gray-900">ScienceLink</span>
             </div>
-            
+
             <form onSubmit={handleSearch} className="relative hidden md:block">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
@@ -61,63 +63,58 @@ export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
           <div className="hidden lg:flex items-center gap-2">
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl ${
-                activeTab === 'home'
+              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl ${activeTab === 'home'
                   ? 'text-pink-600 bg-pink-50'
                   : 'text-gray-600 hover:text-pink-600 hover:bg-pink-50'
-              }`}
+                }`}
               onClick={() => onTabChange('home')}
             >
               <Home className="w-6 h-6" />
               <span className="text-xs">Strona główna</span>
             </Button>
-            
+
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl relative ${
-                activeTab === 'network'
+              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl relative ${activeTab === 'network'
                   ? 'text-pink-600 bg-pink-50'
                   : 'text-gray-600 hover:text-pink-600 hover:bg-pink-50'
-              }`}
+                }`}
               onClick={() => onTabChange('network')}
             >
               <Users className="w-6 h-6" />
               <span className="text-xs">Moja sieć</span>
             </Button>
-            
+
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl ${
-                activeTab === 'jobs'
+              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl ${activeTab === 'jobs'
                   ? 'text-pink-600 bg-pink-50'
                   : 'text-gray-600 hover:text-pink-600 hover:bg-pink-50'
-              }`}
+                }`}
               onClick={() => onTabChange('jobs')}
             >
               <Briefcase className="w-6 h-6" />
               <span className="text-xs">Oferty pracy</span>
             </Button>
-            
+
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl ${
-                activeTab === 'messages'
+              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl ${activeTab === 'messages'
                   ? 'text-pink-600 bg-pink-50'
                   : 'text-gray-600 hover:text-pink-600 hover:bg-pink-50'
-              }`}
+                }`}
               onClick={() => onTabChange('messages')}
             >
               <MessageSquare className="w-6 h-6" />
               <span className="text-xs">Wiadomości</span>
             </Button>
-            
+
             <Button
               variant="ghost"
-              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl relative ${
-                activeTab === 'notifications'
+              className={`flex flex-col items-center gap-1 px-6 py-3 rounded-xl relative ${activeTab === 'notifications'
                   ? 'text-pink-600 bg-pink-50'
                   : 'text-gray-600 hover:text-pink-600 hover:bg-pink-50'
-              }`}
+                }`}
               onClick={() => onTabChange('notifications')}
             >
               <div className="relative">

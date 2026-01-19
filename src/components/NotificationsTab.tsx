@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Heart, MessageCircle, Share2, UserPlus, Quote, Briefcase, CheckCheck } from 'lucide-react';
@@ -53,9 +55,8 @@ export function NotificationsTab() {
               <div
                 key={notification.id}
                 onClick={() => !notification.read && markNotificationRead(notification.id)}
-                className={`p-4 flex gap-3 cursor-pointer transition-colors ${
-                  notification.read ? 'hover:bg-gray-50' : 'bg-pink-50 hover:bg-pink-100'
-                }`}
+                className={`p-4 flex gap-3 cursor-pointer transition-colors ${notification.read ? 'hover:bg-gray-50' : 'bg-pink-50 hover:bg-pink-100'
+                  }`}
               >
                 {/* User Avatar */}
                 <img

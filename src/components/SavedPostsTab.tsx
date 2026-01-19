@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from './ui/card';
 import { Bookmark } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
@@ -9,7 +11,7 @@ interface SavedPostsTabProps {
 
 export function SavedPostsTab({ onEditPost }: SavedPostsTabProps) {
   const { posts, savedPosts } = useApp();
-  
+
   const savedPostsData = posts.filter(p => savedPosts.includes(p.id));
 
   return (

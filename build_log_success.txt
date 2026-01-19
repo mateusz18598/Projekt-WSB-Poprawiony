@@ -1,0 +1,43 @@
+
+> add-post-functionality@0.1.0 build
+> next build
+
+   ▲ Next.js 14.1.0
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/4) ...
+   Generating static pages (1/4) 
+   Generating static pages (2/4) 
+ReferenceError: localStorage is not defined
+    at C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\.next\server\app\page.js:42:236
+    at ni (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:40459)
+    at Object.useState (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:42431)
+    at t.useState (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:109626)
+    at d (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\.next\server\app\page.js:42:224)
+    at nM (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47419)
+    at nN (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64674)
+    at nI (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46806)
+    at nM (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47570)
+    at nM (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61663)
+
+Error occurred prerendering page "/". Read more: https://nextjs.org/docs/messages/prerender-error
+
+ReferenceError: localStorage is not defined
+    at C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\.next\server\app\page.js:42:236
+    at ni (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:40459)
+    at Object.useState (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:42431)
+    at t.useState (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:109626)
+    at d (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\.next\server\app\page.js:42:224)
+    at nM (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47419)
+    at nN (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:64674)
+    at nI (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:46806)
+    at nM (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:47570)
+    at nM (C:\Users\mateu\Desktop\Projekt Mateusz Stankiewicz, Grzegorz Stencel\node_modules\next\dist\compiled\next-server\app-page.runtime.prod.js:12:61663)
+   Generating static pages (3/4) 
+ ✓ Generating static pages (4/4) 
+
+> Export encountered errors on following paths:
+	/page: /

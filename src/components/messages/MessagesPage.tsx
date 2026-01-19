@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
@@ -74,9 +76,8 @@ export function MessagesPage() {
                     <div
                       key={conv.id}
                       onClick={() => setSelectedConversation(conv.id)}
-                      className={`p-4 border-b border-pink-100 cursor-pointer hover:bg-pink-50 transition-colors ${
-                        selectedConversation === conv.id ? 'bg-pink-50' : ''
-                      }`}
+                      className={`p-4 border-b border-pink-100 cursor-pointer hover:bg-pink-50 transition-colors ${selectedConversation === conv.id ? 'bg-pink-50' : ''
+                        }`}
                     >
                       <div className="flex gap-3">
                         <img
@@ -167,11 +168,10 @@ export function MessagesPage() {
                       className={`flex ${msg.from === currentUser.id ? 'justify-end' : 'justify-start'}`}
                     >
                       <div
-                        className={`max-w-[70%] px-4 py-2 rounded-2xl ${
-                          msg.from === currentUser.id
+                        className={`max-w-[70%] px-4 py-2 rounded-2xl ${msg.from === currentUser.id
                             ? 'bg-pink-600 text-white'
                             : 'bg-gray-100 text-gray-900'
-                        }`}
+                          }`}
                       >
                         <p>{msg.content}</p>
                         <p className={`text-xs mt-1 ${msg.from === currentUser.id ? 'text-pink-100' : 'text-gray-500'}`}>

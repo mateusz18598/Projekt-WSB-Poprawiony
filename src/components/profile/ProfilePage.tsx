@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
@@ -138,7 +140,7 @@ export function ProfilePage() {
           </Button>
         </div>
         <p className="text-gray-700 whitespace-pre-wrap">{currentUser.bio}</p>
-        
+
         {currentUser.researchInterests && currentUser.researchInterests.length > 0 && (
           <div className="mt-4">
             <h3 className="text-sm text-gray-600 mb-2">Zainteresowania badawcze:</h3>
@@ -407,11 +409,10 @@ export function ProfilePage() {
               <div key={project.id} className="p-4 border-2 border-pink-200 rounded-xl group hover:border-pink-400 transition-colors">
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="text-gray-900">{project.name}</h3>
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    project.status === 'active' ? 'bg-green-100 text-green-700' :
-                    project.status === 'completed' ? 'bg-blue-100 text-blue-700' :
-                    'bg-gray-100 text-gray-700'
-                  }`}>
+                  <span className={`px-2 py-1 text-xs rounded-full ${project.status === 'active' ? 'bg-green-100 text-green-700' :
+                      project.status === 'completed' ? 'bg-blue-100 text-blue-700' :
+                        'bg-gray-100 text-gray-700'
+                    }`}>
                     {project.status === 'active' ? 'Aktywny' : project.status === 'completed' ? 'Zakończony' : 'Planowany'}
                   </span>
                 </div>
@@ -495,32 +496,32 @@ export function ProfilePage() {
 
       {/* Modals */}
       <EditProfileModal open={showEditProfile} onClose={() => setShowEditProfile(false)} />
-      <ExperienceModal 
-        open={showExperienceModal} 
+      <ExperienceModal
+        open={showExperienceModal}
         onClose={() => {
           setShowExperienceModal(false);
           setEditingItem(null);
         }}
         editItem={editingItem}
       />
-      <EducationModal 
-        open={showEducationModal} 
+      <EducationModal
+        open={showEducationModal}
         onClose={() => {
           setShowEducationModal(false);
           setEditingItem(null);
         }}
         editItem={editingItem}
       />
-      <PublicationModal 
-        open={showPublicationModal} 
+      <PublicationModal
+        open={showPublicationModal}
         onClose={() => {
           setShowPublicationModal(false);
           setEditingItem(null);
         }}
         editItem={editingItem}
       />
-      <ProjectModal 
-        open={showProjectModal} 
+      <ProjectModal
+        open={showProjectModal}
         onClose={() => {
           setShowProjectModal(false);
           setEditingItem(null);

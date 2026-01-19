@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { AppProvider, useApp } from './contexts/AppContext';
 import { Navbar } from './components/layout/Navbar';
@@ -44,8 +46,8 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-pink-50">
-      <Navbar 
-        activeTab={activeTab} 
+      <Navbar
+        activeTab={activeTab}
         onTabChange={setActiveTab}
         onSearch={handleSearch}
       />
@@ -59,11 +61,11 @@ function AppContent() {
             </aside>
 
             <main className="lg:col-span-6 space-y-4">
-              <NewPostCard 
-                userAvatar={posts[0]?.author.avatar || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop'} 
+              <NewPostCard
+                userAvatar={posts[0]?.author.avatar || 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop'}
                 onCreatePost={handleCreatePost}
               />
-              
+
               {posts.length === 0 ? (
                 <div className="bg-white border-2 border-pink-200 rounded-xl p-12 text-center">
                   <div className="text-gray-400 mb-4">
@@ -139,8 +141,8 @@ function AppContent() {
       </div>
 
       {/* Modals */}
-      <CreatePostModal 
-        open={showCreatePost} 
+      <CreatePostModal
+        open={showCreatePost}
         onClose={handleCloseCreatePost}
         editPost={editingPost}
       />

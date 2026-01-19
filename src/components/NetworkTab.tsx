@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
@@ -8,26 +10,26 @@ import { useApp } from '../contexts/AppContext';
 import { toast } from 'sonner';
 
 export function NetworkTab() {
-  const { 
-    currentUser, 
-    allUsers, 
-    connectionRequests, 
-    acceptConnectionRequest, 
+  const {
+    currentUser,
+    allUsers,
+    connectionRequests,
+    acceptConnectionRequest,
     rejectConnectionRequest,
     withdrawConnectionRequest,
     removeConnection,
     sendConnectionRequest
   } = useApp();
-  
+
   const [searchQuery, setSearchQuery] = useState('');
 
   const connections = allUsers.filter(u => currentUser.connections.includes(u.id));
   const receivedRequests = connectionRequests.filter(r => r.status === 'pending');
   const sentRequests = connectionRequests.filter(r => r.from.id === currentUser.id && r.status === 'pending');
-  
+
   const suggestions = allUsers
-    .filter(u => 
-      u.id !== currentUser.id && 
+    .filter(u =>
+      u.id !== currentUser.id &&
       !currentUser.connections.includes(u.id) &&
       !connectionRequests.some(r => r.from.id === currentUser.id && r.status === 'pending')
     )
@@ -50,19 +52,19 @@ export function NetworkTab() {
         <Tabs defaultValue="connections" className="w-full">
           <div className="border-b border-pink-100">
             <TabsList className="w-full justify-start bg-transparent p-0">
-              <TabsTrigger 
-                value="connections" 
+              <TabsTrigger
+                value="connections"
                 className="data-[state=active]:border-b-2 data-[state=active]:border-pink-600 rounded-none"
               >
                 Połączenia ({connections.length})
               </TabsTrigger>
-              <TabsTrigger 
+              <TabsTrigger
                 value="invitations"
                 className="data-[state=active]:border-b-2 data-[state=active]:border-pink-600 rounded-none"
               >
                 Zaproszenia ({receivedRequests.length})
               </TabsTrigger>
-              <TabsTrigger 
+              <TabsTrigger
                 value="suggestions"
                 className="data-[state=active]:border-b-2 data-[state=active]:border-pink-600 rounded-none"
               >

@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Bookmark, Edit } from 'lucide-react';
@@ -14,7 +16,7 @@ export function ProfileSidebar({ user, onEditProfile, savedPostsCount }: Profile
       {/* Profile Card */}
       <Card className="bg-white border-pink-200 overflow-hidden">
         {/* Cover Image */}
-        <div 
+        <div
           className="h-16 bg-gradient-to-r from-pink-400 to-pink-600 relative"
           style={{
             backgroundImage: `url(${user.coverImage})`,
@@ -22,7 +24,7 @@ export function ProfileSidebar({ user, onEditProfile, savedPostsCount }: Profile
             backgroundPosition: 'center'
           }}
         />
-        
+
         {/* Profile Content */}
         <div className="relative px-4 pb-4">
           <img
@@ -35,7 +37,7 @@ export function ProfileSidebar({ user, onEditProfile, savedPostsCount }: Profile
             <p className="text-sm text-gray-600 mt-1">{user.title}</p>
             <p className="text-xs text-gray-500 mt-1">{user.institution}</p>
           </div>
-          
+
           <Button
             variant="outline"
             size="sm"
@@ -45,7 +47,7 @@ export function ProfileSidebar({ user, onEditProfile, savedPostsCount }: Profile
             <Edit className="w-4 h-4 mr-2" />
             Edytuj profil
           </Button>
-          
+
           <div className="mt-4 pt-4 border-t border-pink-100">
             <div className="flex justify-between items-center text-sm">
               <span className="text-gray-600">Wyświetlenia profilu</span>
@@ -56,7 +58,7 @@ export function ProfileSidebar({ user, onEditProfile, savedPostsCount }: Profile
               <span className="text-pink-600">{user.connections.length}</span>
             </div>
           </div>
-          
+
           <div className="mt-4 pt-4 border-t border-pink-100">
             <p className="text-xs text-gray-600">{user.bio}</p>
           </div>

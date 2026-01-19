@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Button } from '../ui/button';
@@ -30,7 +32,7 @@ export function GalleryModal({ open, onClose }: GalleryModalProps) {
         <DialogHeader>
           <DialogTitle>Dodaj zdjęcie do galerii</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4 py-4">
           <div>
             <Label>URL zdjęcia</Label>
@@ -57,8 +59,8 @@ export function GalleryModal({ open, onClose }: GalleryModalProps) {
 
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={onClose}>Anuluj</Button>
-          <Button 
-            onClick={handleAdd} 
+          <Button
+            onClick={handleAdd}
             className="bg-pink-600 hover:bg-pink-700 text-white"
             disabled={!imageUrl.trim()}
           >

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Button } from '../ui/button';
@@ -54,7 +56,7 @@ export function ExperienceModal({ open, onClose, editItem }: ExperienceModalProp
         <DialogHeader>
           <DialogTitle>{editItem ? 'Edytuj doświadczenie' : 'Dodaj doświadczenie'}</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4 py-4">
           <div>
             <Label>Stanowisko *</Label>
@@ -124,8 +126,8 @@ export function ExperienceModal({ open, onClose, editItem }: ExperienceModalProp
 
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={onClose}>Anuluj</Button>
-          <Button 
-            onClick={handleSave} 
+          <Button
+            onClick={handleSave}
             className="bg-pink-600 hover:bg-pink-700 text-white"
             disabled={!formData.position || !formData.institution || !formData.startDate}
           >

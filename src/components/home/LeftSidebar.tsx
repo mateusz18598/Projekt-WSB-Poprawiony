@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
 import { FileText, Bookmark, Users2, Eye, Link2, Quote } from 'lucide-react';
@@ -14,7 +16,7 @@ export function LeftSidebar({ onNavigate }: LeftSidebarProps) {
     <div className="space-y-4 sticky top-20">
       {/* Mini Profile Card */}
       <Card className="bg-white border-pink-200 overflow-hidden hover:shadow-lg transition-shadow">
-        <div 
+        <div
           className="h-20 bg-gradient-to-r from-pink-400 to-pink-600"
           style={{
             backgroundImage: `url(${currentUser.coverImage})`,
@@ -22,7 +24,7 @@ export function LeftSidebar({ onNavigate }: LeftSidebarProps) {
             backgroundPosition: 'center'
           }}
         />
-        
+
         <div className="relative px-4 pb-4">
           <img
             src={currentUser.avatar}
@@ -30,9 +32,9 @@ export function LeftSidebar({ onNavigate }: LeftSidebarProps) {
             className="w-20 h-20 rounded-full border-4 border-white -mt-10 relative object-cover cursor-pointer hover:opacity-90 transition-opacity"
             onClick={() => onNavigate('profile')}
           />
-          
+
           <div className="mt-2 text-center">
-            <h3 
+            <h3
               className="text-gray-900 cursor-pointer hover:text-pink-600 transition-colors"
               onClick={() => onNavigate('profile')}
             >
@@ -41,7 +43,7 @@ export function LeftSidebar({ onNavigate }: LeftSidebarProps) {
             <p className="text-sm text-gray-600 mt-1">{currentUser.title}</p>
             <p className="text-xs text-gray-500 mt-1">{currentUser.institution}</p>
           </div>
-          
+
           <div className="mt-4 pt-4 border-t border-pink-100 space-y-2">
             <div className="flex justify-between items-center text-sm">
               <div className="flex items-center gap-2 text-gray-600">
@@ -50,7 +52,7 @@ export function LeftSidebar({ onNavigate }: LeftSidebarProps) {
               </div>
               <span className="text-pink-600">{currentUser.profileViews}</span>
             </div>
-            
+
             <div className="flex justify-between items-center text-sm">
               <div className="flex items-center gap-2 text-gray-600">
                 <Link2 className="w-4 h-4" />
@@ -58,7 +60,7 @@ export function LeftSidebar({ onNavigate }: LeftSidebarProps) {
               </div>
               <span className="text-pink-600">{currentUser.connections.length}</span>
             </div>
-            
+
             <div className="flex justify-between items-center text-sm">
               <div className="flex items-center gap-2 text-gray-600">
                 <Quote className="w-4 h-4" />
@@ -84,7 +86,7 @@ export function LeftSidebar({ onNavigate }: LeftSidebarProps) {
               {currentUser.publications?.length || 0}
             </span>
           </Button>
-          
+
           <Button
             variant="ghost"
             className="w-full justify-start text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-lg"
@@ -96,7 +98,7 @@ export function LeftSidebar({ onNavigate }: LeftSidebarProps) {
               {savedPosts?.length || 0}
             </span>
           </Button>
-          
+
           <Button
             variant="ghost"
             className="w-full justify-start text-gray-700 hover:text-pink-600 hover:bg-pink-50 rounded-lg"

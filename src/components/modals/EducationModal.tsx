@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog';
 import { Button } from '../ui/button';
@@ -46,7 +48,7 @@ export function EducationModal({ open, onClose, editItem }: EducationModalProps)
         <DialogHeader>
           <DialogTitle>{editItem ? 'Edytuj wykształcenie' : 'Dodaj wykształcenie'}</DialogTitle>
         </DialogHeader>
-        
+
         <div className="space-y-4 py-4">
           <div>
             <Label>Uczelnia *</Label>
@@ -117,8 +119,8 @@ export function EducationModal({ open, onClose, editItem }: EducationModalProps)
 
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={onClose}>Anuluj</Button>
-          <Button 
-            onClick={handleSave} 
+          <Button
+            onClick={handleSave}
             className="bg-pink-600 hover:bg-pink-700 text-white"
             disabled={!formData.institution || !formData.degree || !formData.field || !formData.startYear}
           >

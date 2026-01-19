@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from 'react';
 import { Card } from '../ui/card';
 import { Button } from '../ui/button';
@@ -13,25 +15,25 @@ interface JobsPageProps {
 export function JobsPage({ onCreateJob }: JobsPageProps) {
   const { posts, savedPosts, toggleSavePost } = useApp();
   const jobPosts = posts.filter(p => p.type === 'job');
-  
+
   const [searchQuery, setSearchQuery] = useState('');
   const [locationFilter, setLocationFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [fieldFilter, setFieldFilter] = useState('all');
 
   const filteredJobs = jobPosts.filter(job => {
-    const matchesSearch = searchQuery === '' || 
+    const matchesSearch = searchQuery === '' ||
       job.jobDetails?.position.toLowerCase().includes(searchQuery.toLowerCase()) ||
       job.jobDetails?.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
       job.content.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    const matchesLocation = locationFilter === 'all' || 
+
+    const matchesLocation = locationFilter === 'all' ||
       job.jobDetails?.location.toLowerCase().includes(locationFilter.toLowerCase());
-    
-    const matchesType = typeFilter === 'all' || 
+
+    const matchesType = typeFilter === 'all' ||
       job.jobDetails?.jobType === typeFilter;
-    
-    const matchesField = fieldFilter === 'all' || 
+
+    const matchesField = fieldFilter === 'all' ||
       job.jobDetails?.field === fieldFilter;
 
     return matchesSearch && matchesLocation && matchesType && matchesField;
@@ -44,7 +46,7 @@ export function JobsPage({ onCreateJob }: JobsPageProps) {
         <aside className="lg:col-span-1 space-y-4">
           <Card className="bg-white border-pink-200 p-4 sticky top-20">
             <h3 className="text-lg text-gray-900 mb-4">Filtry</h3>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="text-sm text-gray-600 mb-2 block">Lokalizacja</label>
@@ -144,11 +146,11 @@ export function JobsPage({ onCreateJob }: JobsPageProps) {
                     <div className="w-16 h-16 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Briefcase className="w-8 h-8 text-pink-600" />
                     </div>
-                    
+
                     <div className="flex-1">
                       <h3 className="text-xl text-gray-900 mb-1">{job.jobDetails?.position}</h3>
                       <p className="text-gray-700 mb-2">{job.jobDetails?.company}</p>
-                      
+
                       <div className="flex flex-wrap gap-3 text-sm text-gray-600 mb-3">
                         <span className="flex items-center gap-1">
                           <MapPin className="w-4 h-4" />
