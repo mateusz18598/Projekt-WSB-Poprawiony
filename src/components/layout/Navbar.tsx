@@ -109,7 +109,7 @@ export function Navbar({ activeTab, onTabChange, onSearch }: NavbarProps) {
 
         {/* Right Section - User Menu */}
         <div className="navbar-right">
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <button className="btn btn-ghost" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <img
