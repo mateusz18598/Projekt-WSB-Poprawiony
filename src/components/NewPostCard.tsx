@@ -11,62 +11,59 @@ interface NewPostCardProps {
 
 export function NewPostCard({ userAvatar, onCreatePost }: NewPostCardProps) {
   return (
-    <Card className="bg-white border-pink-200 p-4">
-      <div className="flex gap-3 items-start">
+    <div className="card">
+      <div className="flex gap-2 items-center">
         <img
           src={userAvatar}
           alt="User avatar"
-          className="w-12 h-12 rounded-full object-cover border-2 border-pink-300"
+          className="avatar-md"
+          style={{ border: '2px solid var(--border-color)' }}
         />
         <button
           onClick={() => onCreatePost('post')}
-          className="flex-1 text-left px-4 py-3 bg-pink-50 hover:bg-pink-100 border-2 border-pink-200 rounded-full text-gray-600 transition-colors"
+          className="new-post-trigger"
         >
           Podziel się odkryciem...
         </button>
       </div>
 
-      <div className="flex items-center justify-between mt-4 pt-4 border-t border-pink-100">
-        <Button
-          variant="ghost"
-          size="sm"
+      <div className="action-bar">
+        <button
           onClick={() => onCreatePost('post')}
-          className="flex-1 text-gray-700 hover:text-pink-600 hover:bg-pink-50"
+          className="btn btn-ghost sidebar-btn"
+          style={{ flex: 1, justifyContent: 'center' }}
         >
-          <Image className="w-5 h-5 mr-2 text-blue-500" />
+          <Image className="w-5 h-5 mr-3 text-primary" />
           <span className="text-sm">Zdjęcie</span>
-        </Button>
+        </button>
 
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
           onClick={() => onCreatePost('post')}
-          className="flex-1 text-gray-700 hover:text-pink-600 hover:bg-pink-50"
+          className="btn btn-ghost sidebar-btn"
+          style={{ flex: 1, justifyContent: 'center' }}
         >
-          <Video className="w-5 h-5 mr-2 text-red-500" />
+          <Video className="w-5 h-5 mr-3 text-primary" />
           <span className="text-sm">Video</span>
-        </Button>
+        </button>
 
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
           onClick={() => onCreatePost('article')}
-          className="flex-1 text-gray-700 hover:text-pink-600 hover:bg-pink-50"
+          className="btn btn-ghost sidebar-btn"
+          style={{ flex: 1, justifyContent: 'center' }}
         >
-          <FileText className="w-5 h-5 mr-2 text-green-500" />
+          <FileText className="w-5 h-5 mr-3 text-primary" />
           <span className="text-sm">Artykuł</span>
-        </Button>
+        </button>
 
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
           onClick={() => onCreatePost('job')}
-          className="flex-1 text-gray-700 hover:text-pink-600 hover:bg-pink-50"
+          className="btn btn-ghost sidebar-btn"
+          style={{ flex: 1, justifyContent: 'center' }}
         >
-          <Briefcase className="w-5 h-5 mr-2 text-purple-500" />
+          <Briefcase className="w-5 h-5 mr-3 text-primary" />
           <span className="text-sm">Oferta</span>
-        </Button>
+        </button>
       </div>
-    </Card>
+    </div>
   );
 }

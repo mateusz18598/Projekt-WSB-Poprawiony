@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Heart, MessageCircle, Share2, Send, Bookmark, MoreVertical, Edit2, Trash2, Briefcase, FileText, Download } from 'lucide-react';
-import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { useApp } from '../contexts/AppContext';
@@ -39,7 +38,6 @@ export function PostCard({ post, onEdit }: PostCardProps) {
   };
 
   const handleShare = () => {
-    // Simulate share
     alert('Post udostępniony!');
   };
 
@@ -50,33 +48,34 @@ export function PostCard({ post, onEdit }: PostCardProps) {
   };
 
   return (
-    <Card className="bg-white border-pink-200 overflow-hidden">
+    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
       <div className="p-4">
         {/* Author Info */}
         <div className="flex items-start justify-between mb-4">
-          <div className="flex items-start gap-3">
+          <div className="flex items-start gap-2">
             <img
               src={post.author.avatar}
               alt={post.author.name}
-              className="w-12 h-12 rounded-full object-cover border-2 border-pink-300"
+              className="avatar-md"
+              style={{ border: '2px solid var(--border-color)' }}
             />
             <div>
-              <h3 className="text-gray-900">{post.author.name}</h3>
+              <h3 className="font-bold text-gray-900">{post.author.name}</h3>
               <p className="text-sm text-gray-600">{post.author.title}</p>
-              <p className="text-xs text-gray-500">{post.timeAgo}</p>
+              <p className="text-xs text-muted">{post.timeAgo}</p>
             </div>
           </div>
 
           {/* More menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm">
+              <button className="btn btn-ghost" style={{ padding: '0.5rem', borderRadius: '50%' }}>
                 <MoreVertical className="w-5 h-5" />
-              </Button>
+              </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => toggleSavePost(post.id)}>
-                <Bookmark className={`w-4 h-4 mr-2 ${isSaved ? 'fill-pink-600 text-pink-600' : ''}`} />
+                <Bookmark className={`w-4 h-4 mr-2 ${isSaved ? 'text-primary' : ''}`} />
                 {isSaved ? 'Usuń z zapisanych' : 'Zapisz post'}
               </DropdownMenuItem>
               {isAuthor && (
@@ -104,21 +103,21 @@ export function PostCard({ post, onEdit }: PostCardProps) {
 
         {/* Job Badge */}
         {post.type === 'job' && post.jobDetails && (
-          <div className="mb-3 p-3 bg-pink-50 rounded-lg border border-pink-200">
+          <div className="mb-4" style={{ padding: '0.75rem', backgroundColor: 'var(--secondary-bg)', borderRadius: 'var(--radius-md)' }}>
             <div className="flex items-center gap-2 mb-2">
-              <Briefcase className="w-5 h-5 text-pink-600" />
-              <span className="text-pink-900">Oferta pracy</span>
+              <Briefcase className="w-5 h-5 text-primary" />
+              <span className="font-bold text-primary">Oferta pracy</span>
             </div>
-            <h4 className="text-gray-900 mb-1">{post.jobDetails.position}</h4>
+            <h4 className="font-bold text-gray-900 mb-1">{post.jobDetails.position}</h4>
             <p className="text-sm text-gray-600">{post.jobDetails.company} • {post.jobDetails.location}</p>
             {post.jobDetails.salary && (
-              <p className="text-sm text-pink-600 mt-1">{post.jobDetails.salary}</p>
+              <p className="text-sm text-primary mt-1">{post.jobDetails.salary}</p>
             )}
           </div>
         )}
 
         {/* Content */}
-        <p className="text-gray-800 mb-3 whitespace-pre-wrap">{post.content}</p>
+        <p className="post-content">{post.content}</p>
       </div>
 
       {/* Image */}
@@ -126,26 +125,26 @@ export function PostCard({ post, onEdit }: PostCardProps) {
         <img
           src={post.image}
           alt="Post content"
-          className="w-full max-h-96 object-cover"
+          className="post-image"
         />
       )}
 
       {/* Images Gallery */}
       {post.images && post.images.length > 0 && (
-        <div className={`grid gap-2 ${post.images.length === 1 ? 'grid-cols-1' :
-            post.images.length === 2 ? 'grid-cols-2' :
-              post.images.length === 3 ? 'grid-cols-3' :
-                'grid-cols-2'
+        <div className={`image-grid ${post.images.length === 1 ? 'grid-cols-1' :
+          post.images.length === 2 ? 'grid-cols-2' :
+            post.images.length === 3 ? 'grid-cols-3' :
+              'grid-cols-2'
           }`}>
-          {post.images.slice(0, 4).map((img, index) => (
+          {post.images.slice(0, 4).map((img: string, index: number) => (
             <div key={index} className="relative">
               <img
                 src={img}
                 alt={`Post image ${index + 1}`}
-                className="w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity"
+                style={{ width: '100%', height: '16rem', objectFit: 'cover', cursor: 'pointer' }}
               />
               {index === 3 && post.images.length > 4 && (
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center text-white text-2xl">
+                <div className="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
                   +{post.images.length - 4}
                 </div>
               )}
@@ -156,28 +155,28 @@ export function PostCard({ post, onEdit }: PostCardProps) {
 
       {/* PDF Attachment */}
       {post.pdfUrl && (
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-center gap-3">
-          <div className="w-12 h-12 bg-red-100 rounded flex items-center justify-center">
+        <div className="mb-4 mx-4" style={{ padding: '1rem', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '3rem', height: '3rem', backgroundColor: '#fee2e2', borderRadius: '0.25rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <FileText className="w-6 h-6 text-red-600" />
           </div>
-          <div className="flex-1">
-            <p className="text-sm text-gray-900">Załącznik PDF</p>
-            <p className="text-xs text-gray-500">Dokument badawczy</p>
+          <div style={{ flex: 1 }}>
+            <p className="text-sm font-bold text-gray-900">Załącznik PDF</p>
+            <p className="text-xs text-muted">Dokument badawczy</p>
           </div>
-          <Button
-            size="sm"
-            variant="outline"
+          <button
             onClick={() => window.open(post.pdfUrl, '_blank')}
+            className="btn btn-ghost"
+            style={{ border: '1px solid var(--border-color)' }}
           >
             <Download className="w-4 h-4 mr-1" />
             Pobierz
-          </Button>
+          </button>
         </div>
       )}
 
       {/* YouTube Video */}
       {post.youtubeUrl && getYouTubeVideoId(post.youtubeUrl) && (
-        <div className="w-full aspect-video">
+        <div className="aspect-video" style={{ padding: '0 1rem 1rem' }}>
           <iframe
             width="100%"
             height="100%"
@@ -191,97 +190,89 @@ export function PostCard({ post, onEdit }: PostCardProps) {
       )}
 
       {/* Stats */}
-      <div className="px-4 py-2 border-t border-pink-100">
-        <div className="flex items-center justify-between text-sm text-gray-600">
-          <span>{post.likes.length} polubień</span>
-          <span>{post.comments.length} komentarzy • {post.shares} udostępnień</span>
-        </div>
+      <div className="post-stats">
+        <span>{post.likes.length} polubień</span>
+        <span>{post.comments.length} komentarzy • {post.shares} udostępnień</span>
       </div>
 
       {/* Actions */}
-      <div className="px-4 py-2 border-t border-pink-100 flex items-center justify-around">
-        <Button
-          variant="ghost"
-          className={`flex items-center gap-2 ${isLiked ? 'text-pink-600' : 'text-gray-600'} hover:text-pink-600 hover:bg-pink-50`}
+      <div className="post-actions">
+        <button
+          className={`btn btn-ghost ${isLiked ? 'text-primary' : ''}`}
           onClick={handleLike}
         >
-          <Heart className={`w-5 h-5 ${isLiked ? 'fill-pink-600' : ''}`} />
+          <Heart className={`w-5 h-5 mr-2 ${isLiked ? 'fill-current' : ''}`} />
           <span>Lubię to</span>
-        </Button>
-        <Button
-          variant="ghost"
-          className="flex items-center gap-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50"
+        </button>
+        <button
+          className="btn btn-ghost"
           onClick={() => setShowComments(!showComments)}
         >
-          <MessageCircle className="w-5 h-5" />
+          <MessageCircle className="w-5 h-5 mr-2" />
           <span>Komentuj</span>
-        </Button>
-        <Button
-          variant="ghost"
-          className="flex items-center gap-2 text-gray-600 hover:text-pink-600 hover:bg-pink-50"
+        </button>
+        <button
+          className="btn btn-ghost"
           onClick={handleShare}
         >
-          <Share2 className="w-5 h-5" />
+          <Share2 className="w-5 h-5 mr-2" />
           <span>Udostępnij</span>
-        </Button>
-        <Button
-          variant="ghost"
-          className={`flex items-center gap-2 ${isSaved ? 'text-pink-600' : 'text-gray-600'} hover:text-pink-600 hover:bg-pink-50`}
+        </button>
+        <button
+          className={`btn btn-ghost ${isSaved ? 'text-primary' : ''}`}
           onClick={() => toggleSavePost(post.id)}
         >
-          <Bookmark className={`w-5 h-5 ${isSaved ? 'fill-pink-600' : ''}`} />
+          <Bookmark className={`w-5 h-5 mr-2 ${isSaved ? 'fill-current' : ''}`} />
           <span>Zapisz</span>
-        </Button>
+        </button>
       </div>
 
       {/* Comments Section */}
       {showComments && (
-        <div className="px-4 pb-4 border-t border-pink-100">
-          {/* Add Comment */}
-          <div className="flex gap-2 mt-4 mb-4">
+        <div className="comment-section">
+          <div className="comment-input-area">
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
-              className="w-8 h-8 rounded-full object-cover border-2 border-pink-300"
+              className="avatar-sm"
             />
-            <div className="flex-1 flex gap-2">
+            <div style={{ flex: 1, display: 'flex', gap: '0.5rem' }}>
               <Textarea
                 placeholder="Dodaj komentarz..."
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}
-                rows={2}
+                rows={1}
                 className="flex-1"
+                style={{ minHeight: '2.5rem', padding: '0.5rem' }}
               />
-              <Button
+              <button
                 onClick={handleComment}
                 disabled={!commentText.trim()}
-                className="bg-pink-600 hover:bg-pink-700 text-white"
+                className="btn btn-primary"
               >
                 <Send className="w-4 h-4" />
-              </Button>
+              </button>
             </div>
           </div>
 
-          {/* Comments List */}
-          <div className="space-y-3">
+          <div className="comment-list">
             {post.comments.map((comment: any) => (
               <div key={comment.id} className="flex gap-2 group">
                 <img
                   src={comment.author.avatar}
                   alt={comment.author.name}
-                  className="w-8 h-8 rounded-full object-cover border-2 border-pink-200"
+                  className="avatar-sm"
                 />
-                <div className="flex-1 bg-pink-50 rounded-lg p-3">
+                <div className="comment-bubble">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h4 className="text-sm text-gray-900">{comment.author.name}</h4>
-                      <p className="text-xs text-gray-500">{comment.timeAgo}</p>
+                      <h4 className="text-sm font-bold text-gray-900">{comment.author.name}</h4>
+                      <p className="text-xs text-muted">{comment.timeAgo}</p>
                     </div>
                     {comment.author.id === currentUser.id && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      <button
+                        className="btn btn-ghost"
+                        style={{ padding: '0.25rem' }}
                         onClick={() => {
                           if (confirm('Czy na pewno chcesz usunąć ten komentarz?')) {
                             deleteComment(post.id, comment.id);
@@ -289,16 +280,16 @@ export function PostCard({ post, onEdit }: PostCardProps) {
                         }}
                       >
                         <Trash2 className="w-4 h-4 text-red-600" />
-                      </Button>
+                      </button>
                     )}
                   </div>
-                  <p className="text-sm text-gray-800 mt-1">{comment.content}</p>
+                  <p className="text-sm text-gray-900 mt-1">{comment.content}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
       )}
-    </Card>
+    </div>
   );
 }

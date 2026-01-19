@@ -48,139 +48,126 @@ export function NetworkTab() {
 
   return (
     <div className="space-y-6">
-      <Card className="bg-white border-pink-200">
+      <div className="card" style={{ padding: '0 0 1rem 0', overflow: 'hidden' }}>
         <Tabs defaultValue="connections" className="w-full">
-          <div className="border-b border-pink-100">
-            <TabsList className="w-full justify-start bg-transparent p-0">
-              <TabsTrigger
-                value="connections"
-                className="data-[state=active]:border-b-2 data-[state=active]:border-pink-600 rounded-none"
-              >
-                Połączenia ({connections.length})
-              </TabsTrigger>
-              <TabsTrigger
-                value="invitations"
-                className="data-[state=active]:border-b-2 data-[state=active]:border-pink-600 rounded-none"
-              >
-                Zaproszenia ({receivedRequests.length})
-              </TabsTrigger>
-              <TabsTrigger
-                value="suggestions"
-                className="data-[state=active]:border-b-2 data-[state=active]:border-pink-600 rounded-none"
-              >
-                Sugestie
-              </TabsTrigger>
-            </TabsList>
-          </div>
+          <TabsList className="tabs-list m-0">
+            <TabsTrigger value="connections" className="tab-trigger">
+              Połączenia ({connections.length})
+            </TabsTrigger>
+            <TabsTrigger value="invitations" className="tab-trigger">
+              Zaproszenia ({receivedRequests.length})
+            </TabsTrigger>
+            <TabsTrigger value="suggestions" className="tab-trigger">
+              Sugestie
+            </TabsTrigger>
+          </TabsList>
 
-          <TabsContent value="connections" className="p-6 space-y-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <Input
+          <TabsContent value="connections" className="p-4">
+            <div className="input-with-icon mb-4">
+              <Search className="input-icon" />
+              <input
                 type="text"
                 placeholder="Szukaj w sieci..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="input-field"
               />
             </div>
 
             {filteredConnections.length === 0 ? (
-              <div className="text-center py-12 text-gray-500">
+              <div className="text-center py-12 text-muted">
                 <p>Brak połączeń</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="network-grid">
                 {filteredConnections.map((user) => (
-                  <Card key={user.id} className="p-4 border-pink-200 hover:shadow-md transition-shadow">
+                  <div key={user.id} className="network-card">
                     <div className="flex items-start gap-3">
                       <img
                         src={user.avatar}
                         alt={user.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-pink-200"
+                        className="avatar-md"
                       />
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-gray-900 truncate">{user.name}</h3>
+                      <div className="flex-1" style={{ minWidth: 0 }}>
+                        <h3 className="font-bold text-gray-900 truncate">{user.name}</h3>
                         <p className="text-sm text-gray-600 truncate">{user.title}</p>
-                        <p className="text-xs text-gray-500 mt-1">{user.institution}</p>
+                        <p className="text-xs text-muted mt-1">{user.institution}</p>
                         <div className="flex gap-2 mt-3">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="flex-1"
+                          <button
+                            className="btn btn-ghost"
+                            style={{ border: '1px solid var(--border-color)', flex: 1 }}
                           >
                             <MessageSquare className="w-4 h-4 mr-1" />
                             Wiadomość
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
+                          </button>
+                          <button
+                            className="btn btn-ghost"
+                            style={{ border: '1px solid var(--border-color)', color: 'var(--primary-color)' }}
                             onClick={() => handleRemoveConnection(user.id, user.name)}
-                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
                           >
                             <UserMinus className="w-4 h-4" />
-                          </Button>
+                          </button>
                         </div>
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 ))}
               </div>
             )}
           </TabsContent>
 
-          <TabsContent value="invitations" className="p-6 space-y-6">
+          <TabsContent value="invitations" className="p-4">
             {receivedRequests.length === 0 && sentRequests.length === 0 ? (
-              <div className="text-center py-12 text-gray-500">
+              <div className="text-center py-12 text-muted">
                 <p>Brak zaproszeń</p>
               </div>
             ) : (
-              <>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 {receivedRequests.length > 0 && (
                   <div>
-                    <h3 className="text-gray-900 mb-4">Otrzymane ({receivedRequests.length})</h3>
-                    <div className="space-y-3">
+                    <h3 className="font-bold text-gray-900 mb-4">Otrzymane ({receivedRequests.length})</h3>
+                    <div className="network-grid">
                       {receivedRequests.map((request) => (
-                        <Card key={request.id} className="p-4 border-pink-200">
+                        <div key={request.id} className="network-card">
                           <div className="flex items-start gap-3">
                             <img
                               src={request.from.avatar}
                               alt={request.from.name}
-                              className="w-14 h-14 rounded-full object-cover border-2 border-pink-200"
+                              className="avatar-md"
                             />
                             <div className="flex-1">
-                              <h4 className="text-gray-900">{request.from.name}</h4>
+                              <h4 className="font-bold text-gray-900">{request.from.name}</h4>
                               <p className="text-sm text-gray-600">{request.from.title}</p>
-                              <p className="text-xs text-gray-500 mt-1">
+                              <p className="text-xs text-muted mt-1">
                                 {request.mutualConnections} wspólnych połączeń
                               </p>
                               <div className="flex gap-2 mt-3">
-                                <Button
-                                  size="sm"
+                                <button
                                   onClick={() => {
                                     acceptConnectionRequest(request.id);
                                     toast.success('Zaproszenie zaakceptowane');
                                   }}
-                                  className="bg-pink-600 hover:bg-pink-700 text-white"
+                                  className="btn btn-primary"
+                                  style={{ flex: 1 }}
                                 >
                                   <Check className="w-4 h-4 mr-1" />
                                   Akceptuj
-                                </Button>
-                                <Button
-                                  size="sm"
-                                  variant="outline"
+                                </button>
+                                <button
                                   onClick={() => {
                                     rejectConnectionRequest(request.id);
                                     toast.success('Zaproszenie odrzucone');
                                   }}
+                                  className="btn btn-ghost"
+                                  style={{ border: '1px solid var(--border-color)' }}
                                 >
                                   <X className="w-4 h-4 mr-1" />
                                   Odrzuć
-                                </Button>
+                                </button>
                               </div>
                             </div>
                           </div>
-                        </Card>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -188,82 +175,81 @@ export function NetworkTab() {
 
                 {sentRequests.length > 0 && (
                   <div>
-                    <h3 className="text-gray-900 mb-4">Wysłane ({sentRequests.length})</h3>
-                    <div className="space-y-3">
+                    <h3 className="font-bold text-gray-900 mb-4">Wysłane ({sentRequests.length})</h3>
+                    <div className="network-grid">
                       {sentRequests.map((request) => (
-                        <Card key={request.id} className="p-4 border-pink-200">
+                        <div key={request.id} className="network-card">
                           <div className="flex items-start justify-between">
                             <div className="flex gap-3">
                               <img
                                 src={request.from.avatar}
                                 alt={request.from.name}
-                                className="w-14 h-14 rounded-full object-cover border-2 border-pink-200"
+                                className="avatar-md"
                               />
                               <div>
-                                <h4 className="text-gray-900">{request.from.name}</h4>
+                                <h4 className="font-bold text-gray-900">{request.from.name}</h4>
                                 <p className="text-sm text-gray-600">{request.from.title}</p>
-                                <p className="text-xs text-gray-500 mt-1">Oczekuje na odpowiedź</p>
+                                <p className="text-xs text-muted mt-1">Oczekuje na odpowiedź</p>
                               </div>
                             </div>
-                            <Button
-                              size="sm"
-                              variant="outline"
+                            <button
                               onClick={() => {
                                 withdrawConnectionRequest(request.id);
                                 toast.success('Zaproszenie wycofane');
                               }}
+                              className="btn btn-ghost"
+                              style={{ border: '1px solid var(--border-color)' }}
                             >
                               Wycofaj
-                            </Button>
+                            </button>
                           </div>
-                        </Card>
+                        </div>
                       ))}
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             )}
           </TabsContent>
 
-          <TabsContent value="suggestions" className="p-6">
+          <TabsContent value="suggestions" className="p-4">
             {suggestions.length === 0 ? (
-              <div className="text-center py-12 text-gray-500">
+              <div className="text-center py-12 text-muted">
                 <p>Brak sugestii</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="network-grid cols-3">
                 {suggestions.map((user) => (
-                  <Card key={user.id} className="p-4 border-pink-200 hover:shadow-md transition-shadow">
-                    <div className="text-center">
-                      <img
-                        src={user.avatar}
-                        alt={user.name}
-                        className="w-20 h-20 rounded-full object-cover border-2 border-pink-200 mx-auto"
-                      />
-                      <h3 className="text-gray-900 mt-3">{user.name}</h3>
-                      <p className="text-sm text-gray-600 mt-1 line-clamp-2">{user.title}</p>
-                      <p className="text-xs text-gray-500 mt-1">{user.institution}</p>
-                      <p className="text-xs text-pink-600 mt-2">
-                        {user.connections.filter(c => currentUser.connections.includes(c)).length} wspólnych połączeń
-                      </p>
-                      <Button
-                        size="sm"
-                        onClick={() => {
-                          sendConnectionRequest(user);
-                          toast.success('Zaproszenie wysłane');
-                        }}
-                        className="mt-3 w-full bg-pink-600 hover:bg-pink-700 text-white"
-                      >
-                        Połącz
-                      </Button>
-                    </div>
-                  </Card>
+                  <div key={user.id} className="network-card text-center">
+                    <img
+                      src={user.avatar}
+                      alt={user.name}
+                      className="avatar-md mx-auto"
+                      style={{ width: '5rem', height: '5rem', margin: '0 auto' }}
+                    />
+                    <h3 className="font-bold text-gray-900 mt-3">{user.name}</h3>
+                    <p className="text-sm text-gray-600 mt-1" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user.title}</p>
+                    <p className="text-xs text-muted mt-1">{user.institution}</p>
+                    <p className="text-xs text-primary mt-2">
+                      {user.connections.filter(c => currentUser.connections.includes(c)).length} wspólnych połączeń
+                    </p>
+                    <button
+                      onClick={() => {
+                        sendConnectionRequest(user);
+                        toast.success('Zaproszenie wysłane');
+                      }}
+                      className="btn btn-primary"
+                      style={{ width: '100%', marginTop: '0.75rem' }}
+                    >
+                      Połącz
+                    </button>
+                  </div>
                 ))}
               </div>
             )}
           </TabsContent>
         </Tabs>
-      </Card>
+      </div>
     </div>
   );
 }
