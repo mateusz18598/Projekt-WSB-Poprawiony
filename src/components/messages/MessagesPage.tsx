@@ -21,9 +21,16 @@ export function MessagesPage() {
 
   const getOtherParticipant = (conversationId: string) => {
     const conv = conversations.find(c => c.id === conversationId);
-    if (!conv) return null;
-    const otherId = conv.participants.find(p => p !== currentUser.id);
-    return allUsers.find(u => u.id === otherId);
+    if (conv) {
+      const otherId = conv.participants.find(p => p !== currentUser.id);
+      return allUsers.find(u => u.id === otherId);
+    }
+
+    // Fallback for new conversations that don't exist in the conversations array yet
+    return allUsers.find(u => {
+      const potentialId = [currentUser.id, u.id].sort().join('-');
+      return potentialId === conversationId && u.id !== currentUser.id;
+    });
   };
 
   const handleSendMessage = () => {
